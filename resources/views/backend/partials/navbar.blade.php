@@ -121,15 +121,52 @@
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li>
+
+      <!-- User Profile menu -->
+      <li class="nav-item">
+        <span class="nav-link">Abdus Sukkur</span>
+        
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          {{-- <i class="far fa-bell"></i>
+          <span class="badge badge-warning navbar-badge">15</span> --}}
+          <div class="image" >
+            
+            <img src="@if(admin()->avatar != null) {{ asset('uploads/backend/profile/'.admin()->avatar)}} @else {{ asset('backend/dist/img/profile.webp') }} @endif" width="25"  class="img-circle elevation-2" alt="User Image">
+          </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+          <a href="{{ route('admin.show_profile') }}" class="dropdown-item">
+            <i class="fas fa-user mr-2"></i> Profile
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="{{ route('admin.change_password') }}" class="dropdown-item">
+            <i class="fas fa-file mr-2"></i> Chanage Password
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="{{ route('admin.logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="fas fa-sign-out-alt mr-2"></i> Logout
+          </a>
+          <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+            {{ csrf_field() }}
+          </form>
+        </div>
+      </li>
+
+      
+    
+    
+
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
           <i class="fas fa-th-large"></i>
         </a>
-      </li>
+      </li> --}}
     </ul>
   </nav>
