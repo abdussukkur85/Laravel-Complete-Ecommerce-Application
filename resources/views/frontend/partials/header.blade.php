@@ -31,6 +31,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800'
         rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <script src="{{ asset('backend') }}/dist/js/toastr.min.js"></script>
     <link rel="stylesheet" href="{{ asset('frontend/assets') }}/css/style.css">
     @stack('css')
 </head>

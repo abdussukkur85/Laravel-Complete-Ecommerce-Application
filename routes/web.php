@@ -14,4 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/dashboard', function () {
+//     return view('frontend.dashboard');
+// });
 Route::get('/', [IndexController::class, 'index']);
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::view('/dashboard', 'frontend.dashboard')->name('frontend.dashboard');
+    Route::view('user/password', 'frontend.auth.update-password');
+    Route::view('user/profile-information', 'frontend.auth.update-profile');
+});
