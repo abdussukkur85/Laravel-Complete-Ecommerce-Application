@@ -20,10 +20,12 @@
                         <h4 class="">Sign in</h4>
                         <p class="">Hello, Welcome to your account.</p>
                         <div class="social-sign-in outer-top-xs">
-                            <a href="#" class="facebook-sign-in"><i class="fa fa-facebook"></i> Sign In with Facebook</a>
+                            <a href="#" class="facebook-sign-in"><i class="fa fa-facebook"></i> Sign In with
+                                Facebook</a>
                             <a href="#" class="twitter-sign-in"><i class="fa fa-twitter"></i> Sign In with Twitter</a>
                         </div>
-                        <form class="register-form outer-top-xs" role="form" action="{{ route('login') }}" method="post">
+                        <form class="register-form outer-top-xs" role="form" action="{{ route('login') }}"
+                            method="post">
                             @csrf
                             <div class="form-group">
                                 <label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>
@@ -72,15 +74,17 @@
                             <div class="form-group">
                                 <label class="info-title" for="exampleInputEmail2">Email Address <span>*</span></label>
                                 <input type="email" name="register_email"
-                                    class="form-control unicase-form-control text-input" id="exampleInputEmail2">
+                                    class="form-control unicase-form-control text-input" id="exampleInputEmail2"
+                                    value="{{ old('register_email') }}">
                                 @error('register_email')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label class="info-title" for="exampleInputEmail1">Name <span>*</span></label>
-                                <input type="text" name="register_name" class="form-control unicase-form-control text-input"
-                                    id="exampleInputEmail1">
+                                <input type="text" name="register_name"
+                                    class="form-control unicase-form-control text-input" id="exampleInputEmail1"
+                                    value="{{ old('register_name') }}">
                                 @error('register_name')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
@@ -88,7 +92,8 @@
                             <div class="form-group">
                                 <label class="info-title" for="exampleInputEmail1">Phone Number <span>*</span></label>
                                 <input type="text" name="register_phone"
-                                    class="form-control unicase-form-control text-input" id="exampleInputEmail1">
+                                    class="form-control unicase-form-control text-input" id="exampleInputEmail1"
+                                    value="{{ old('register_phone') }}">
                                 @error('register_phone')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
