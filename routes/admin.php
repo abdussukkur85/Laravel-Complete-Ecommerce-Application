@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminProfileController;
-use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -20,5 +21,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/profile/update', [AdminProfileController::class, 'update'])->name('update_profile');
         Route::get('/profile/change-password', [AdminProfileController::class, 'changePassword'])->name('change_password');
         Route::post('/profile/change-password', [AdminProfileController::class, 'changePasswordUpdate'])->name('update_password');
+
+        Route::resource('brand', BrandController::class)->except(['create', 'show']);
     });
 });

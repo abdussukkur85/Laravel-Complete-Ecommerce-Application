@@ -2,3 +2,25 @@
     display: flex;
     justify-content: space-between;
 }
+
+.required:after {
+    content:"*\00a0";
+    color:red;
+}
+
+.brand-image{
+    width: 80px;
+}
+button.swal-button.swal-button--confirm {
+    background: #3085d6 !important;
+    font-weight: bold;
+    color: #fff;
+    font-size: 15px;
+}
+
+button.swal-button.swal-button--cancel{
+    background: #dd3333 !important;
+    font-weight: bold;
+    color: #fff;
+    font-size: 15px;
+}
