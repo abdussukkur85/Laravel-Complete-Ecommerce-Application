@@ -9,7 +9,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="">All Brand</h4>
+                            <h4 class="">All Category</h4>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -24,12 +24,12 @@
                                                 <tr>
                                                     <th class="sorting sorting_asc" tabindex="0" aria-controls="example1"
                                                         rowspan="1" colspan="1" aria-sort="ascending"
-                                                        aria-label="Brand Name: activate to sort column descending">
-                                                        Brand Name</th>
+                                                        aria-label="Cateogyr Icon: activate to sort column descending">
+                                                        Category Icon</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example1"
                                                         rowspan="1" colspan="1"
-                                                        aria-label="Brand Image: activate to sort column ascending">
-                                                        Brand Image</th>
+                                                        aria-label="Category Name: activate to sort column ascending">
+                                                        Category Name</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example1"
                                                         rowspan="1" colspan="1"
                                                         aria-label="Action: activate to sort column ascending">
@@ -38,25 +38,25 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($brands as $brand)
+                                                @foreach ($categories as $category)
                                                     <tr class="odd">
                                                         <td class="dtr-control sorting_1 align-middle" tabindex="0">
-                                                            {{ $brand->name }}
+                                                            <i class="{{ $category->icon }}"></i>
                                                         </td>
-                                                        <td><img class="brand-image"
-                                                                src="{{ asset('uploads/backend/brand/' . $brand->image) }}"
-                                                                alt="Ecommer Brand Image"> </td>
+                                                        <td class="dtr-control sorting_1 align-middle" tabindex="0">
+                                                            {{ $category->name }}
+                                                        </td>
                                                         <td class="align-middle">
                                                             <div>
-                                                                <a href="{{ route('admin.brand.edit', $brand) }}"
+                                                                <a href="{{ route('admin.category.edit', $category) }}"
                                                                     class="btn btn-sm btn-primary">Edit</a>
                                                                 <form method="POST"
-                                                                    action="{{ route('admin.brand.destroy', $brand) }}"
+                                                                    action="{{ route('admin.category.destroy', $category) }}"
                                                                     class="d-inline">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit"
-                                                                        class="btn btn-sm d-inline btn-danger delete-data"
+                                                                        class="btn btn-sm btn-md d-inline btn-danger delete-data"
                                                                         data-toggle="tooltip" title='Delete'>Delete</button>
                                                                 </form>
 
@@ -67,8 +67,8 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th rowspan="1" colspan="1">Brand Name</th>
-                                                    <th rowspan="1" colspan="1">Brand Image</th>
+                                                    <th rowspan="1" colspan="1">Category Icon</th>
+                                                    <th rowspan="1" colspan="1">Category Name</th>
                                                     <th rowspan="1" colspan="1">Action</th>
                                                 </tr>
                                             </tfoot>
@@ -86,32 +86,29 @@
                 <div class="col-3">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="">Add Brand</h4>
+                            <h4 class="">Add Category</h4>
                         </div>
                         <!-- /.card-header -->
-                        <form action="{{ route('admin.brand.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.category.store') }}" method="post">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="brandName" class="required">Brand Name
+                                    <label for="CategoryName" class="required">Category Name
                                     </label>
-                                    <input type="text" name="name" class="form-control" id="brandName"
+                                    <input type="text" name="name" class="form-control" id="CategoryName"
                                         value="{{ old('name') }}">
                                 </div>
 
                                 <div class="">
-                                    <label for="brandImage" class="required">Brand Image</label>
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="file" name="image" class="custom-file-input" id="brandImage">
-                                            <label class="custom-file-label" for="brandImage">Choose file</label>
-                                        </div>
-                                    </div>
+                                    <label for="categoryIcon" class="required">Category Icon
+                                    </label>
+                                    <input type="text" name="icon" class="form-control" id="categoryIcon"
+                                        placeholder="fas fa-address-book" value="{{ old('icon') }}">
                                 </div>
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Add Brand</button>
+                                <button type="submit" class="btn btn-primary">Add Category</button>
                             </div>
                     </div>
                     </form>

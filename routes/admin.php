@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminProfileController;
-
+use App\Http\Controllers\Admin\SubCategoryController;
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
@@ -23,5 +24,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/profile/change-password', [AdminProfileController::class, 'changePasswordUpdate'])->name('update_password');
 
         Route::resource('brand', BrandController::class)->except(['create', 'show']);
+        Route::resource('category', CategoryController::class)->except(['create', 'show']);
+        Route::resource('subcategory', SubCategoryController::class)->except(['create', 'show']);
     });
 });

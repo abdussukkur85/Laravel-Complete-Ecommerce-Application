@@ -1,5 +1,9 @@
 @extends('backend.layouts.admin_master')
 @section('title', 'Brand List')
+@push('css')
+    <link rel="stylesheet" href="{{ asset('backend') }}/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="{{ asset('backend') }}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+@endpush
 @section('master_content')
 
     <section class="content pt-4">
@@ -9,7 +13,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="">All Brand</h4>
+                            <h4 class="">All SubCategory</h4>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -24,12 +28,12 @@
                                                 <tr>
                                                     <th class="sorting sorting_asc" tabindex="0" aria-controls="example1"
                                                         rowspan="1" colspan="1" aria-sort="ascending"
-                                                        aria-label="Brand Name: activate to sort column descending">
-                                                        Brand Name</th>
+                                                        aria-label="Cateogyr Icon: activate to sort column descending">
+                                                        Category Name</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example1"
                                                         rowspan="1" colspan="1"
-                                                        aria-label="Brand Image: activate to sort column ascending">
-                                                        Brand Image</th>
+                                                        aria-label="Category Name: activate to sort column ascending">
+                                                        SubCategory Name</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example1"
                                                         rowspan="1" colspan="1"
                                                         aria-label="Action: activate to sort column ascending">
@@ -38,25 +42,25 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($brands as $brand)
+                                                @foreach ($subcategories as $subcategory)
                                                     <tr class="odd">
                                                         <td class="dtr-control sorting_1 align-middle" tabindex="0">
-                                                            {{ $brand->name }}
+                                                            {{ $subcategory->category->name }}
                                                         </td>
-                                                        <td><img class="brand-image"
-                                                                src="{{ asset('uploads/backend/brand/' . $brand->image) }}"
-                                                                alt="Ecommer Brand Image"> </td>
+                                                        <td class="dtr-control sorting_1 align-middle" tabindex="0">
+                                                            {{ $subcategory->name }}
+                                                        </td>
                                                         <td class="align-middle">
                                                             <div>
-                                                                <a href="{{ route('admin.brand.edit', $brand) }}"
+                                                                <a href="{{ route('admin.subcategory.edit', $subcategory) }}"
                                                                     class="btn btn-sm btn-primary">Edit</a>
                                                                 <form method="POST"
-                                                                    action="{{ route('admin.brand.destroy', $brand) }}"
+                                                                    action="{{ route('admin.subcategory.destroy', $subcategory) }}"
                                                                     class="d-inline">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit"
-                                                                        class="btn btn-sm d-inline btn-danger delete-data"
+                                                                        class="btn btn-sm btn-md d-inline btn-danger delete-data"
                                                                         data-toggle="tooltip" title='Delete'>Delete</button>
                                                                 </form>
 
@@ -67,8 +71,8 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th rowspan="1" colspan="1">Brand Name</th>
-                                                    <th rowspan="1" colspan="1">Brand Image</th>
+                                                    <th rowspan="1" colspan="1">Category Name</th>
+                                                    <th rowspan="1" colspan="1">SubCategory Name</th>
                                                     <th rowspan="1" colspan="1">Action</th>
                                                 </tr>
                                             </tfoot>
@@ -86,32 +90,34 @@
                 <div class="col-3">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="">Add Brand</h4>
+                            <h4 class="">Add SubCategory</h4>
                         </div>
                         <!-- /.card-header -->
-                        <form action="{{ route('admin.brand.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.subcategory.store') }}" method="post">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="brandName" class="required">Brand Name
-                                    </label>
-                                    <input type="text" name="name" class="form-control" id="brandName"
-                                        value="{{ old('name') }}">
+                                    <label>Select Category</label>
+                                    <select class="form-control select2" style="width: 100%;" name="category_id">
+                                        @foreach ($categories as $category)
+                                            <option @if ($loop->index == 0) selected="selected" @endif
+                                                value="{{ $category->id }}">
+                                                {{ $category->name }}</option>
+                                        @endforeach
+
+                                    </select>
                                 </div>
 
                                 <div class="">
-                                    <label for="brandImage" class="required">Brand Image</label>
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="file" name="image" class="custom-file-input" id="brandImage">
-                                            <label class="custom-file-label" for="brandImage">Choose file</label>
-                                        </div>
-                                    </div>
+                                    <label for="subCategoryName" class="required">SubCategory Name
+                                    </label>
+                                    <input type="text" name="name" class="form-control" id="subCategoryName"
+                                        value="{{ old('name') }}">
                                 </div>
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Add Brand</button>
+                                <button type="submit" class="btn btn-primary">Add SubCategory</button>
                             </div>
                     </div>
                     </form>
@@ -123,4 +129,18 @@
         <!-- /.container-fluid -->
     </section>
 
+    @push('js')
+        <script src="{{ asset('backend') }}/plugins/select2/js/select2.full.min.js"></script>
+        <script>
+            $(function() {
+                //Initialize Select2 Elements
+                $('.select2').select2()
+
+                //   //Initialize Select2 Elements
+                //   $('.select2bs4').select2({
+                //     theme: 'bootstrap4'
+                //   })
+            });
+        </script>
+    @endpush
 @endsection

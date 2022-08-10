@@ -13,11 +13,12 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('backend') }}/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('backend') }}/dist/css/adminlte.min.css">
+
     <link rel="stylesheet" href="{{ asset('backend') }}/dist/css/toastr.css">
     <link rel="stylesheet" href="{{ asset('backend') }}/dist/css/sweetalert2.min.css">
     <link rel="stylesheet" href="{{ asset('backend') }}/dist/css/style.css">
     @stack('css')
+    <link rel="stylesheet" href="{{ asset('backend') }}/dist/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini @yield('body')">
@@ -38,7 +39,7 @@
     <script src="{{ asset('backend') }}/dist/js/toastr.min.js"></script>
     <script src="{{ asset('backend') }}/dist/js/sweetalert.min.js"></script>
     <script>
-        $('#delete').click(function(event) {
+        $('.delete-data').click(function(event) {
             var form = $(this).closest("form");
             var name = $(this).data("name");
             event.preventDefault();

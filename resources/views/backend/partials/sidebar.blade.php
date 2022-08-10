@@ -87,6 +87,32 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item @if (request()->routeIs('admin.category*') || request()->routeIs('admin.subcategory*')) {{ 'menu-open' }} @endif ">
+                    <a href="" class="nav-link">
+                        <i
+                            class="nav-icon fas fa-tachometer-alt {{ request()->routeIs('admin.category*') ? 'active' : '' }}"></i>
+                        <p>
+                            Category
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.category.index') }}"
+                                class="nav-link {{ request()->routeIs('admin.category.index') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All Category</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.subcategory.index') }}"
+                                class="nav-link {{ request()->routeIs('admin.subcategory.index') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All SubCategory</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-header">EXAMPLES</li>
                 <li class="nav-item">
                     <a href="../calendar.html" class="nav-link">
