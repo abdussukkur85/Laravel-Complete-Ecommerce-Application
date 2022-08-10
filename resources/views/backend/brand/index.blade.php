@@ -64,6 +64,7 @@
                                                         </td>
                                                     </tr>
                                                 @endforeach
+
                                             </tbody>
                                             <tfoot>
                                                 <tr>
@@ -71,8 +72,13 @@
                                                     <th rowspan="1" colspan="1">Brand Image</th>
                                                     <th rowspan="1" colspan="1">Action</th>
                                                 </tr>
+
                                             </tfoot>
+
                                         </table>
+                                        <div class="d-flex justify-content-end">
+                                            {{ $brands->links() }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

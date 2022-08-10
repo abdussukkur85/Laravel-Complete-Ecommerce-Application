@@ -88,6 +88,7 @@ class SubCategoryController extends Controller {
      */
     public function destroy(Subcategory $subcategory) {
         $subcategory->delete();
-        return redirect()->back()->with(['message' => 'Category Deleted Successfully', 'alert-type' => 'success']);
+        
+
     }
 }

@@ -73,6 +73,9 @@
                                                 </tr>
                                             </tfoot>
                                         </table>
+                                        <div class="d-flex justify-content-end">
+                                            {{ $categories->links() }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
