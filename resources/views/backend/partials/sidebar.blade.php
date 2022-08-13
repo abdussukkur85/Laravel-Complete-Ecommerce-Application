@@ -87,7 +87,9 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item @if (request()->routeIs('admin.category*') || request()->routeIs('admin.subcategory*')) {{ 'menu-open' }} @endif ">
+                <li class="nav-item @if (request()->routeIs('admin.category*') ||
+                    request()->routeIs('admin.subcategory*') ||
+                    request()->routeIs('admin.subsubcategory*')) {{ 'menu-open' }} @endif ">
                     <a href="" class="nav-link">
                         <i
                             class="nav-icon fas fa-tachometer-alt {{ request()->routeIs('admin.category*') ? 'active' : '' }}"></i>
@@ -99,16 +101,23 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('admin.category.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.category.index') ? 'active' : '' }}">
+                                class="nav-link {{ request()->routeIs('admin.category*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>All Category</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.subcategory.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.subcategory.index') ? 'active' : '' }}">
+                                class="nav-link {{ request()->routeIs('admin.subcategory*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>All SubCategory</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.subsubcategory.index') }}"
+                                class="nav-link {{ request()->routeIs('admin.subsubcategory*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All Sub <i class="fas fa-angle-double-right"></i> SubCategory</p>
                             </a>
                         </li>
                     </ul>

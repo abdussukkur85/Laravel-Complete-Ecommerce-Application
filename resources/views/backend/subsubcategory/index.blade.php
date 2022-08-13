@@ -1,5 +1,5 @@
 @extends('backend.layouts.admin_master')
-@section('title', 'Subcategory List')
+@section('title', 'Sub Subcategory List')
 @push('css')
     <link rel="stylesheet" href="{{ asset('backend') }}/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="{{ asset('backend') }}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
@@ -13,7 +13,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="">All SubCategory</h4>
+                            <h4 class="">All Sub <i class="fas fa-angle-double-right"></i> SubCategory</h4>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -29,11 +29,15 @@
                                                     <th class="sorting sorting_asc" tabindex="0" aria-controls="example1"
                                                         rowspan="1" colspan="1" aria-sort="ascending"
                                                         aria-label="Cateogyr Icon: activate to sort column descending">
-                                                        Category Name</th>
+                                                        Category</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example1"
                                                         rowspan="1" colspan="1"
                                                         aria-label="Category Name: activate to sort column ascending">
-                                                        SubCategory Name</th>
+                                                        SubCategory</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example1"
+                                                        rowspan="1" colspan="1"
+                                                        aria-label="Category Name: activate to sort column ascending">
+                                                        Sub SubCategory</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example1"
                                                         rowspan="1" colspan="1"
                                                         aria-label="Action: activate to sort column ascending">
@@ -42,20 +46,24 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($subcategories as $subcategory)
+                                                @foreach ($sub_subcategories as $sub_subcategory)
                                                     <tr class="odd">
                                                         <td class="dtr-control sorting_1 align-middle" tabindex="0">
-                                                            {{ $subcategory->category->name }}
+                                                            {{ $sub_subcategory->category->name }}
                                                         </td>
                                                         <td class="dtr-control sorting_1 align-middle" tabindex="0">
-                                                            {{ $subcategory->name }}
+                                                            {{ $sub_subcategory->subCategory->name }}
                                                         </td>
+                                                        <td class="dtr-control sorting_1 align-middle" tabindex="0">
+                                                            {{ $sub_subcategory->name }}
+                                                        </td>
+
                                                         <td class="align-middle">
                                                             <div>
-                                                                <a href="{{ route('admin.subcategory.edit', $subcategory) }}"
+                                                                <a href="{{ route('admin.subsubcategory.edit', $sub_subcategory->id) }}"
                                                                     class="btn btn-sm btn-primary">Edit</a>
                                                                 <form method="POST"
-                                                                    action="{{ route('admin.subcategory.destroy', $subcategory) }}"
+                                                                    action="{{ route('admin.subsubcategory.destroy', $sub_subcategory->id) }}"
                                                                     class="d-inline">
                                                                     @csrf
                                                                     @method('DELETE')
@@ -71,14 +79,15 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th rowspan="1" colspan="1">Category Name</th>
-                                                    <th rowspan="1" colspan="1">SubCategory Name</th>
+                                                    <th rowspan="1" colspan="1">Category</th>
+                                                    <th rowspan="1" colspan="1">SubCategory</th>
+                                                    <th rowspan="1" colspan="1">Sub SubCategory</th>
                                                     <th rowspan="1" colspan="1">Action</th>
                                                 </tr>
                                             </tfoot>
                                         </table>
                                         <div class="d-flex justify-content-end">
-                                            {{ $subcategories->links() }}
+                                            {{ $sub_subcategories->links() }}
                                         </div>
                                     </div>
                                 </div>
@@ -93,34 +102,45 @@
                 <div class="col-3">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="">Add SubCategory</h4>
+                            <h5 class="">Add Sub <i class="fas fa-angle-double-right"></i> SubCategory</h5>
                         </div>
                         <!-- /.card-header -->
-                        <form action="{{ route('admin.subcategory.store') }}" method="post">
+                        <form action="{{ route('admin.subsubcategory.store') }}" method="post">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                     <label class="required">Select Category</label>
-                                    <select class="form-control select2" style="width: 100%;" name="category_id">
+                                    <select class="form-control select2" id="selectCategory" style="width: 100%;"
+                                        name="category_id">
+                                        <option selected='selected' disabled>Select Category</option>
                                         @foreach ($categories as $category)
-                                            <option @if ($loop->index == 0) selected="selected" @endif
-                                                value="{{ $category->id }}">
+                                            <option value="{{ $category->id }}">
                                                 {{ $category->name }}</option>
                                         @endforeach
 
                                     </select>
                                 </div>
 
+                                <div class="form-group">
+                                    <label class="required">Select Subcategory</label>
+                                    <select class="form-control select2" id="selectSubCategory" style="width: 100%;"
+                                        name="subcategory_id">
+                                        <option selected='selected' disabled>Select SubCategory</option>
+                                    </select>
+                                </div>
+
                                 <div class="">
-                                    <label for="subCategoryName" class="required">SubCategory Name
+                                    <label for="SubSubcategoryName" class="required">Sub SubCategory Name
                                     </label>
-                                    <input type="text" name="name" class="form-control" id="subCategoryName"
+                                    <input type="text" name="name" class="form-control" id="SubSubcategoryName"
                                         value="{{ old('name') }}">
                                 </div>
+
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Add SubCategory</button>
+                                <button type="submit" class="btn btn-primary">Add Sub <i
+                                        class="fas fa-angle-double-right"></i> SubCategory</button>
                             </div>
                     </div>
                     </form>
@@ -138,6 +158,29 @@
             $(function() {
                 //Initialize Select2 Elements
                 $('.select2').select2()
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $('#selectCategory').on('change', function() {
+                    let subcateogry_id = this.value;
+                    $.ajax({
+                        type: 'GET',
+                        url: "subcategory/ajax/" + subcateogry_id,
+                        success: function(data) {
+                            $('#selectSubCategory').empty();
+                            $.each(data, function(i, value) {
+                                $('#selectSubCategory').append('<option value=' +
+                                    value.id + '>' + value.name +
+                                    '</option>');
+                            });
+                        }
+                    });
+                });
+
             });
         </script>
     @endpush

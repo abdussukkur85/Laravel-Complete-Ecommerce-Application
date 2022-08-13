@@ -7,9 +7,10 @@ use App\Models\Subcategory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SubcategoryRequest;
+use App\Http\Requests\SubSubcategoryRequest;
+use App\Models\SubSubcategory;
 
-class SubCategoryController extends Controller {
+class SubSubcategoryController extends Controller {
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +18,8 @@ class SubCategoryController extends Controller {
      */
     public function index() {
         $categories = Category::latest()->get();
-        $subcategories = Subcategory::latest()->paginate(15);
-        return view('backend.subcategory.index', compact('categories', 'subcategories'));
+        $sub_subcategories = SubSubcategory::with(['subCategory', 'category'])->latest()->paginate(15);
+        return view('backend.subsubcategory.index', compact('sub_subcategories', 'categories'));
     }
 
     /**
@@ -36,13 +37,12 @@ class SubCategoryController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SubcategoryRequest $request) {
-
+    public function store(SubSubcategoryRequest $request) {
         $data = $request->validated();
         $data['slug'] = Str::slug($request->name);
-        Subcategory::create($data);
+        SubSubcategory::create($data);
 
-        return redirect()->back()->with(['message' => 'Subcategory Created Successfully', 'alert-type' => 'success']);
+        return redirect()->back()->with(['message' => 'Sub Subcategory Created Successfully', 'alert-type' => 'success']);
     }
 
     /**
@@ -61,10 +61,12 @@ class SubCategoryController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Subcategory $subcategory) {
-
+    public function edit($id) {
+        $sub_subcategory = SubSubcategory::find($id);
         $categories = Category::latest()->get();
-        return view('backend.subcategory.edit', compact('categories', 'subcategory'));
+        $subcategories = Subcategory::where('category_id', $sub_subcategory->category_id)->get();
+
+        return view('backend.subsubcategory.edit', compact('categories', 'subcategories', 'sub_subcategory'));
     }
 
     /**
@@ -74,11 +76,14 @@ class SubCategoryController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SubcategoryRequest $request, Subcategory $subcategory) {
+    public function update(SubSubcategoryRequest $request, $id) {
         $data = $request->validated();
         $data['slug'] = Str::slug($request->name);
-        $subcategory->update($data);
-        return redirect()->route('admin.subcategory.index')->with(['message' => 'Subcategory Updated Successfully', 'alert-type' => 'success']);
+        $sub_subcategory = SubSubcategory::find($id);
+        $sub_subcategory->update($data);
+
+
+        return redirect()->route('admin.subsubcategory.index')->with(['message' => 'Sub Subcategory Updated Successfully', 'alert-type' => 'success']);
     }
 
     /**
@@ -87,8 +92,14 @@ class SubCategoryController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subcategory $subcategory) {
-        $subcategory->delete();
-        return redirect()->back()->with(['message' => 'Sub Deleted Successfully', 'alert-type' => 'success']);
+    public function destroy($id) {
+        $sub_subcategory = SubSubcategory::find($id);
+        $sub_subcategory->delete();
+        return redirect()->back()->with(['message' => 'Sub SubCategory Deleted Successfully', 'alert-type' => 'success']);
+    }
+
+    public function getSubcategoryAjax($id) {
+        $subcategories = Subcategory::where('category_id', $id)->get();
+        return response()->json($subcategories);
     }
 }

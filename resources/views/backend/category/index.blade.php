@@ -1,5 +1,5 @@
 @extends('backend.layouts.admin_master')
-@section('title', 'Brand List')
+@section('title', 'Category List')
 @section('master_content')
 
     <section class="content pt-4">
