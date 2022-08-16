@@ -45,7 +45,6 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(ProductRequest $request) {
-        $data = $request->validated();
 
         // prepare thumbnail image before upload
         if ($request->file('thumbnail')) {
@@ -55,7 +54,7 @@ class ProductController extends Controller {
             if (!File::exists($url)) {
                 File::makeDirectory($url, $mode = 0777, true, true);
             }
-            Image::make($file)->resize(947, 1000)->save($url . '/' . $filename);
+            Image::make($file)->resize(870, 370)->save($url . '/' . $filename);
         }
 
         $product = new Product();
@@ -136,7 +135,6 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(ProductRequest $request, Product $product) {
-        $data = $request->validated();
 
         // prepare thumbnail image before upload
         if ($request->file('thumbnail')) {

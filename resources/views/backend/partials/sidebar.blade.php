@@ -149,6 +149,25 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item {{ request()->routeIs('admin.slider*') ? 'menu-open' : '' }}">
+                    <a href="" class="nav-link">
+                        <i
+                            class="nav-icon fas fa-tachometer-alt {{ request()->routeIs('admin.slider*') ? 'active' : '' }}"></i>
+                        <p>
+                            Slider
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.slider.index') }}"
+                                class="nav-link {{ request()->routeIs('admin.slider.index') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Manage Slider</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-header">EXAMPLES</li>
                 <li class="nav-item">
                     <a href="../calendar.html" class="nav-link">
