@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\SubCategoryController;
@@ -29,5 +30,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('subcategory', SubCategoryController::class)->except(['create', 'show']);
         Route::resource('subsubcategory', SubSubcategoryController::class)->except(['create', 'show']);
         Route::get('/subcategory/ajax/{id}', [SubSubcategoryController::class, 'getSubcategoryAjax'])->name('subcategory.ajax');
+        Route::get('/subsubcategory/ajax/{id}', [SubSubcategoryController::class, 'getSubSubcategoryAjax'])->name('subsubcategory.ajax');
+        Route::resource('products', ProductController::class);
+        Route::put('product/{product}/inactive', [ProductController::class, 'inActive'])->name('products.inactive');
+        Route::put('product/{product}/active', [ProductController::class, 'active'])->name('products.active');
+        Route::delete('product/{id}/gallery_image', [ProductController::class, 'deleteGalleryImage'])->name('products.delete_gallery_image');
     });
 });

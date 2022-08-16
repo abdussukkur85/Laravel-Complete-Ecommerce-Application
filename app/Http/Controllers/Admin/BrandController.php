@@ -41,6 +41,9 @@ class BrandController extends Controller {
         if ($request->file('image')) {
             $file = $request->file('image');
             $filename = date('YmdHi') . $file->getClientOriginalName();
+            if (!File::exists("/uploads/backend/brand")) {
+                File::makeDirectory(public_path() . '/uploads/backend/brand', $mode = 0777, true, true);
+            }
             Image::make($file)->resize(150, 150)->save('uploads/backend/brand/' . $filename);
         }
 
@@ -105,8 +108,6 @@ class BrandController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Brand $brand) {
-
-
         File::delete('uploads/backend/brand/' . $brand->image);
         $brand->delete();
         return redirect()->route('admin.brand.index')->with(['message' => 'Brand Deleted Successfully', 'alert-type' => 'success']);

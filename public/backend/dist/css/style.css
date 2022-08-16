@@ -8,8 +8,8 @@
     color:red;
 }
 
-.brand-image{
-    width: 80px;
+.brand-image, .product-image{
+    max-width: 80px !important;
 }
 button.swal-button.swal-button--confirm {
     background: #3085d6 !important;
@@ -24,3 +24,38 @@ button.swal-button.swal-button--cancel{
     color: #fff;
     font-size: 15px;
 }
+
+span.tag.label.label-info {
+    background: #007bff;
+    padding-left: 5px;
+}
+.bootstrap-tagsinput {
+    width: 100%;
+}
+.note-editing-area {
+    min-height: 150px;
+}
+
+span.gallery-image {
+    margin: 0;
+    padding: 0;
+    width: 100px;
+    position: relative;
+}
+
+span.gallery-image i {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+}
+
+div#preview_img img {
+    margin: 3px;
+}
+
+/* .bootstrap-tagsinput .tag {
+    margin-right: 2px;
+    color: white;
+    padding: 0px 5px 2px 5px;
+} */
