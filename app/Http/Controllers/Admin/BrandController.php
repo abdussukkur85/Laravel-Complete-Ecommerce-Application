@@ -44,7 +44,7 @@ class BrandController extends Controller {
             if (!File::exists("/uploads/backend/brand")) {
                 File::makeDirectory(public_path() . '/uploads/backend/brand', $mode = 0777, true, true);
             }
-            Image::make($file)->resize(150, 150)->save('uploads/backend/brand/' . $filename);
+            Image::make($file)->resize(165, 110)->save('uploads/backend/brand/' . $filename);
         }
 
         $brand = new Brand();
@@ -87,7 +87,7 @@ class BrandController extends Controller {
         if ($request->file('image')) {
             $file = $request->file('image');
             $filename = date('YmdHi') . $file->getClientOriginalName();
-            Image::make($file)->resize(150, 150)->save('uploads/backend/brand/' . $filename);
+            Image::make($file)->resize(165, 110)->save('uploads/backend/brand/' . $filename);
             File::delete('uploads/backend/brand/' . $brand->image);
         }
 

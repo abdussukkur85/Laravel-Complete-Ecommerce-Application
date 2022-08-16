@@ -54,7 +54,7 @@ class ProductController extends Controller {
             if (!File::exists($url)) {
                 File::makeDirectory($url, $mode = 0777, true, true);
             }
-            Image::make($file)->resize(870, 370)->save($url . '/' . $filename);
+            Image::make($file)->resize(917, 1000)->save($url . '/' . $filename);
         }
 
         $product = new Product();
@@ -92,7 +92,7 @@ class ProductController extends Controller {
                 if (!File::exists($url)) {
                     File::makeDirectory($url, $mode = 0777, true, true);
                 }
-                Image::make($gallery_image)->resize(947, 1000)->save($url . '/' . $filename);
+                Image::make($gallery_image)->resize(917, 1000)->save($url . '/' . $filename);
 
                 MultiImage::insert([
                     'product_id' => $product->id,
@@ -144,7 +144,7 @@ class ProductController extends Controller {
             if (!File::exists($url)) {
                 File::makeDirectory($url, $mode = 0777, true, true);
             }
-            Image::make($file)->resize(947, 1000)->save($url . '/' . $filename);
+            Image::make($file)->resize(917, 1000)->save($url . '/' . $filename);
         }
 
         $product->brand_id = $request->brand_id;
@@ -183,7 +183,7 @@ class ProductController extends Controller {
                 if (!File::exists($url)) {
                     File::makeDirectory($url, $mode = 0777, true, true);
                 }
-                Image::make($gallery_image)->resize(947, 1000)->save($url . '/' . $filename);
+                Image::make($gallery_image)->resize(917, 1000)->save($url . '/' . $filename);
 
                 MultiImage::insert([
                     'product_id' => $product->id,
