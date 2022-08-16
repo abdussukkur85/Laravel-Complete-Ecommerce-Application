@@ -82,7 +82,8 @@
                                                                     @method('PUT')
                                                                     <button type="submit"
                                                                         class="btn btn-sm d-inline btn-secondary"
-                                                                        data-toggle="tooltip" title='Inactive'>
+                                                                        data-toggle="tooltip"
+                                                                        @if ($product->status == 1) title='Inactive' @else title="Active" @endif>
                                                                         @if ($product->status == 1)
                                                                             <i class="fas fa-arrow-alt-circle-down"></i>
                                                                         @else
