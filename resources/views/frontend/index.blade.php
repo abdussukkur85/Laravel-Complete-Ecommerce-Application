@@ -1046,7 +1046,8 @@
                                                 <div class="products">
                                                     <div class="product">
                                                         <div class="product-image">
-                                                            <div class="image"> <a href="detail.html"><img
+                                                            <div class="image"> <a
+                                                                    href="{{ route('frontend.product_details', $product) }}"><img
                                                                         src="{{ asset('uploads/backend/thumbnail/' . $product->thumbnail) }}"
                                                                         alt=""></a> </div>
                                                             <!-- /.image -->
@@ -1067,13 +1068,26 @@
 
                                                         <div class="product-info text-left">
                                                             <h3 class="name"><a
-                                                                    href="detail.html">{{ $product->name }}</a>
+                                                                    href="{{ route('frontend.product_details', $product) }}">{{ $product->name }}</a>
                                                             </h3>
                                                             <div class="rating rateit-small"></div>
                                                             <div class="description"></div>
-                                                            <div class="product-price"> <span class="price"> $450.99
-                                                                </span>
-                                                                <span class="price-before-discount">$ 800</span>
+                                                            <div class="product-price">
+
+                                                                @if ($product->discount_price)
+                                                                    <div class="product-price"> <span class="price">
+                                                                            ${{ $product->discount_price }}
+                                                                        </span> <span
+                                                                            class="price-before-discount">${{ $product->selling_price }}
+                                                                        </span>
+                                                                    </div>
+                                                                @else
+                                                                    <div class="product-price"> <span class="price">
+                                                                            ${{ $product->selling_price }}
+                                                                        </span>
+                                                                    </div>
+                                                                @endif
+
                                                             </div>
                                                             <!-- /.product-price -->
 
@@ -1131,7 +1145,8 @@
                                                     <div class="products">
                                                         <div class="product">
                                                             <div class="product-image">
-                                                                <div class="image"> <a href="detail.html"><img
+                                                                <div class="image"> <a
+                                                                        href="{{ route('frontend.product_details', $product) }}"><img
                                                                             src="{{ asset('uploads/backend/thumbnail/' . $product->thumbnail) }}"
                                                                             alt=""></a> </div>
                                                                 <!-- /.image -->
@@ -1154,13 +1169,24 @@
 
                                                             <div class="product-info text-left">
                                                                 <h3 class="name"><a
-                                                                        href="detail.html">{{ $product->name }}</a></h3>
+                                                                        href="{{ route('frontend.product_details', $product) }}">{{ $product->name }}</a>
+                                                                </h3>
                                                                 <div class="rating rateit-small"></div>
                                                                 <div class="description"></div>
-                                                                <div class="product-price"> <span class="price"> $450.99
-                                                                    </span> <span class="price-before-discount">$
-                                                                        800</span>
-                                                                </div>
+
+                                                                @if ($product->discount_price)
+                                                                    <div class="product-price"> <span class="price">
+                                                                            ${{ $product->discount_price }}
+                                                                        </span> <span
+                                                                            class="price-before-discount">${{ $product->selling_price }}
+                                                                        </span>
+                                                                    </div>
+                                                                @else
+                                                                    <div class="product-price"> <span class="price">
+                                                                            ${{ $product->selling_price }}
+                                                                        </span>
+                                                                    </div>
+                                                                @endif
                                                                 <!-- /.product-price -->
 
                                                             </div>

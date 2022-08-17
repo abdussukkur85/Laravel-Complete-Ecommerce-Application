@@ -13,4 +13,8 @@ class Product extends Model {
     public function galleryImages() {
         return $this->hasMany(MultiImage::class);
     }
+
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
 }

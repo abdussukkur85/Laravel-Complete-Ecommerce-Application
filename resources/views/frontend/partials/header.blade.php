@@ -214,11 +214,11 @@
                         <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
                             <div class="nav-outer">
                                 <ul class="nav navbar-nav">
-                                    <li class="active dropdown yamm-fw"> <a
-                                            href="home.htm{{ route('frontend.home') }}" data-hover="dropdown"
-                                            class="dropdown-toggle" data-toggle="dropdown">Home</a> </li>
+                                    <li class="active  yamm-fw"> <a href="{{ route('frontend.home') }}">Home</a> </li>
 
-
+                                    @php
+                                        $categories = App\Models\Category::latest()->get();
+                                    @endphp
                                     @foreach ($categories as $category)
                                         <li class="dropdown yamm mega-menu"> <a href="home.html"
                                                 data-hover="dropdown" class="dropdown-toggle"
