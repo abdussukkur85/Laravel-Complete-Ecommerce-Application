@@ -42,6 +42,10 @@
                                                         Description</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example1"
                                                         rowspan="1" colspan="1"
+                                                        aria-label="Brand Image: activate to sort column ascending">
+                                                        Status</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example1"
+                                                        rowspan="1" colspan="1"
                                                         aria-label="Action: activate to sort column ascending">
                                                         Action</th>
 
@@ -110,6 +114,7 @@
                                                     <th rowspan="1" colspan="1">Slider Image</th>
                                                     <th rowspan="1" colspan="1">Title</th>
                                                     <th rowspan="1" colspan="1">Description</th>
+                                                    <th rowspan="1" colspan="1">Status</th>
                                                     <th rowspan="1" colspan="1">Action</th>
                                                 </tr>
 

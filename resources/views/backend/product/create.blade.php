@@ -318,8 +318,7 @@
                             fRead.onload = (function(file) { //trigger function on successful read
                                 return function(e) {
                                     var img = $('<img/>').addClass('thumb').attr('src', e.target
-                                            .result).width(100)
-                                        .height(80); //create image element 
+                                        .result).width(100); //create image element 
                                     $('#preview_img').append(img); //append image to output element
                                 };
                             })(file);

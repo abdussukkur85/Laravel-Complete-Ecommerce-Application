@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/dashboard', function () {
 //     return view('frontend.dashboard');
 // });
-Route::get('/', [IndexController::class, 'index']);
+Route::get('/', [IndexController::class, 'index'])->name('frontend.home');
 
 Route::middleware(['auth'])->group(function () {
 

@@ -17,7 +17,7 @@ class SubCategoryController extends Controller {
      */
     public function index() {
         $categories = Category::latest()->get();
-        $subcategories = Subcategory::latest()->paginate(15);
+        $subcategories = Subcategory::with('category')->latest()->paginate(15);
         return view('backend.subcategory.index', compact('categories', 'subcategories'));
     }
 

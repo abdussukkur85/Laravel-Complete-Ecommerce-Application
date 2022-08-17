@@ -34,7 +34,7 @@ class ProductRequest extends FormRequest {
             'size' => 'string|max:255',
             'color' => 'required|string|max:255',
             'selling_price' => 'required|numeric',
-            'discount_price' => 'numeric',
+            'discount_price' => 'nullable|numeric',
             'short_description' => 'required|string|max:255',
             'long_description' => 'required|string|max:255',
             'long_description' => 'required|string|max:255',

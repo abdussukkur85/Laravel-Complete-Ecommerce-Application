@@ -198,7 +198,7 @@
                                                 @foreach ($product->galleryImages as $gallery_image)
                                                     <span class="gallery-image">
                                                         <img src="{{ asset('uploads/backend/gallery_images/' . $gallery_image->gallery_image) }}"
-                                                            alt="Gallery Image" style="width: 100px; height:80px"><i
+                                                            alt="Gallery Image" style="width: 100px;"><i
                                                             class="fas fa-times-circle gallery-image-delete"
                                                             data-gallery-id="{{ $gallery_image->id }}"></i>
                                                     </span>
@@ -327,8 +327,7 @@
                             fRead.onload = (function(file) { //trigger function on successful read
                                 return function(e) {
                                     var img = $('<img/>').addClass('thumb').attr('src', e.target
-                                            .result).width(100)
-                                        .height(80); //create image element 
+                                        .result).width(100); //create image element 
                                     $('#preview_img').append(img); //append image to output element
                                 };
                             })(file);
