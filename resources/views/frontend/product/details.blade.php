@@ -321,7 +321,7 @@
                                                 href="{{ asset('uploads/backend/thumbnail/' . $product->thumbnail) }}">
                                                 <img class="img-responsive" alt=""
                                                     src="{{ asset('uploads/backend/thumbnail/' . $product->thumbnail) }}"
-                                                    data-echo="{{ asset('uploads/backend/thumbnail/' . $product->thumbnail) }}"/>
+                                                    data-echo="{{ asset('uploads/backend/thumbnail/' . $product->thumbnail) }}" />
                                             </a>
                                         </div>
 
@@ -435,77 +435,7 @@
                                                 </div>
                                             @endforeach
 
-                                            {{-- <div class="item">
-                                                <a class="horizontal-thumb" data-target="#owl-single-product"
-                                                    data-slide="2" href="#slide2">
-                                                    <img class="img-responsive" width="85" alt=""
-                                                        src="{{ asset('frontend/assets/images') }}/blank.gif"
-                                                        data-echo="{{ asset('frontend/assets/images') }}/products/p18.jpg" />
-                                                </a>
-                                            </div>
-                                            <div class="item">
 
-                                                <a class="horizontal-thumb" data-target="#owl-single-product"
-                                                    data-slide="3" href="#slide3">
-                                                    <img class="img-responsive" width="85" alt=""
-                                                        src="{{ asset('frontend/assets/images') }}/blank.gif"
-                                                        data-echo="{{ asset('frontend/assets/images') }}/products/p19.jpg" />
-                                                </a>
-                                            </div>
-                                            <div class="item">
-
-                                                <a class="horizontal-thumb" data-target="#owl-single-product"
-                                                    data-slide="4" href="#slide4">
-                                                    <img class="img-responsive" width="85" alt=""
-                                                        src="{{ asset('frontend/assets/images') }}/blank.gif"
-                                                        data-echo="{{ asset('frontend/assets/images') }}/products/p20.jpg" />
-                                                </a>
-                                            </div>
-                                            <div class="item">
-
-                                                <a class="horizontal-thumb" data-target="#owl-single-product"
-                                                    data-slide="5" href="#slide5">
-                                                    <img class="img-responsive" width="85" alt=""
-                                                        src="{{ asset('frontend/assets/images') }}/blank.gif"
-                                                        data-echo="{{ asset('frontend/assets/images') }}/products/p21.jpg" />
-                                                </a>
-                                            </div>
-                                            <div class="item">
-
-                                                <a class="horizontal-thumb" data-target="#owl-single-product"
-                                                    data-slide="6" href="#slide6">
-                                                    <img class="img-responsive" width="85" alt=""
-                                                        src="{{ asset('frontend/assets/images') }}/blank.gif"
-                                                        data-echo="{{ asset('frontend/assets/images') }}/products/p22.jpg" />
-                                                </a>
-                                            </div>
-                                            <div class="item">
-
-                                                <a class="horizontal-thumb" data-target="#owl-single-product"
-                                                    data-slide="7" href="#slide7">
-                                                    <img class="img-responsive" width="85" alt=""
-                                                        src="{{ asset('frontend/assets/images') }}/blank.gif"
-                                                        data-echo="{{ asset('frontend/assets/images') }}/products/p23.jpg" />
-                                                </a>
-                                            </div>
-                                            <div class="item">
-
-                                                <a class="horizontal-thumb" data-target="#owl-single-product"
-                                                    data-slide="8" href="#slide8">
-                                                    <img class="img-responsive" width="85" alt=""
-                                                        src="{{ asset('frontend/assets/images') }}/blank.gif"
-                                                        data-echo="{{ asset('frontend/assets/images') }}/products/p24.jpg" />
-                                                </a>
-                                            </div>
-                                            <div class="item">
-
-                                                <a class="horizontal-thumb" data-target="#owl-single-product"
-                                                    data-slide="9" href="#slide9">
-                                                    <img class="img-responsive" width="85" alt=""
-                                                        src="{{ asset('frontend/assets/images') }}/blank.gif"
-                                                        data-echo="{{ asset('frontend/assets/images') }}/products/p25.jpg" />
-                                                </a>
-                                            </div> --}}
                                         </div><!-- /#owl-single-product-thumbnails -->
 
 
@@ -560,9 +490,9 @@
                                                 <div class="price-box">
                                                     @if ($product->discount_price)
                                                         <span class="price">{{ $product->discount_price }}</span>
-                                                        <span class="price-strike">{{ $product->selling_price }}</span>
+                                                        <span class="price-strike">${{ $product->selling_price }}</span>
                                                     @else
-                                                        <span class="price">{{ $product->selling_price }}</span>
+                                                        <span class="price">${{ $product->selling_price }}</span>
                                                     @endif
 
                                                 </div>

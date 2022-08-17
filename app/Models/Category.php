@@ -17,4 +17,12 @@ class Category extends Model {
     public function products() {
         return $this->hasMany(Product::class)->where('status', 1)->take(6);
     }
+
+    public function categoryWiseSpecialOfferProducts() {
+        return $this->hasMany(Product::class)->where('special_offer', 1)->take(3);
+    }
+
+    public function categoryWiseSpecialDeals() {
+        return $this->hasMany(Product::class)->where('special_deal', 1)->take(3);
+    }
 }
