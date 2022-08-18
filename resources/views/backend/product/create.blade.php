@@ -135,7 +135,7 @@
                                     <!-- Row Number 3 -->
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="productSize" class="required">Product Size</label><br>
+                                            <label for="productSize">Product Size</label><br>
                                             <input type="text" class="form-control" id="productSize" name="size"
                                                 data-role="tagsinput" value="{{ old('size') ?? 'small,' }}">
                                         </div>

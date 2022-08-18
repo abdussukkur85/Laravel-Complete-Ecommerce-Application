@@ -7,51 +7,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-3 sidebar">
 
                     <!-- ================================== TOP NAVIGATION ================================== -->
-                    <div class="side-menu animate-dropdown outer-bottom-xs">
-                        <div class="head"><i class="icon fa fa-align-justify fa-fw"></i> Categories</div>
-                        <nav class="yamm megamenu-horizontal">
-                            <ul class="nav">
-
-                                @foreach ($categories as $category)
-                                    <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle"
-                                            data-toggle="dropdown"><i class="icon {{ $category->icon }}"
-                                                aria-hidden="true"></i>{{ $category->name }}</a>
-                                        <ul class="dropdown-menu mega-menu">
-                                            <li class="yamm-content">
-                                                <div class="row">
-                                                    @foreach ($category->subCategory as $subcategory)
-                                                        @php
-                                                            $sub_subcategories = App\Models\SubSubcategory::where('category_id', $category->id)
-                                                                ->where('subcategory_id', $subcategory->id)
-                                                                ->get();
-                                                            
-                                                        @endphp
-                                                        <div class="col-sm-12 col-md-3">
-                                                            <h2 class="title">{{ $subcategory->name }}</h2>
-                                                            <ul class="links list-unstyled">
-                                                                @foreach ($sub_subcategories as $sub_subcategory)
-                                                                    <li><a href="#">{{ $sub_subcategory->name }}</a>
-                                                                    </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        </div>
-                                                        <!-- /.col -->
-                                                    @endforeach
-                                                </div>
-                                                <!-- /.row -->
-                                            </li>
-                                            <!-- /.yamm-content -->
-                                        </ul>
-                                        <!-- /.dropdown-menu -->
-                                    </li>
-                                    <!-- /.menu-item -->
-                                @endforeach
-
-                            </ul>
-                            <!-- /.nav -->
-                        </nav>
-                        <!-- /.megamenu-horizontal -->
-                    </div>
+                    @includeIf('frontend.partials.sidebar-menu')
                     <!-- /.side-menu -->
                     <!-- ================================== TOP NAVIGATION : END ================================== -->
 
@@ -190,15 +146,11 @@
                     <div class="sidebar-widget product-tag wow fadeInUp">
                         <h3 class="section-title">Product tags</h3>
                         <div class="sidebar-widget-body outer-top-xs">
-                            <div class="tag-list"> <a class="item" title="Phone" href="category.html">Phone</a> <a
-                                    class="item active" title="Vest" href="category.html">Vest</a> <a class="item"
-                                    title="Smartphone" href="category.html">Smartphone</a> <a class="item"
-                                    title="Furniture" href="category.html">Furniture</a> <a class="item"
-                                    title="T-shirt" href="category.html">T-shirt</a> <a class="item"
-                                    title="Sweatpants" href="category.html">Sweatpants</a> <a class="item"
-                                    title="Sneaker" href="category.html">Sneaker</a> <a class="item" title="Toys"
-                                    href="category.html">Toys</a> <a class="item" title="Rose"
-                                    href="category.html">Rose</a> </div>
+                            <div class="tag-list">
+                                {{-- @foreach ($tags as $tag)
+                                    <a class="item" title="Phone" href="#">{{ $tag }}</a>
+                                @endforeach --}}
+                            </div>
                             <!-- /.tag-list -->
                         </div>
                         <!-- /.sidebar-widget-body -->
@@ -210,8 +162,7 @@
                     <div class="sidebar-widget outer-bottom-small wow fadeInUp">
                         <h3 class="section-title">Special Deals</h3>
                         <div class="sidebar-widget-body outer-top-xs">
-                            <div
-                                class="owl-carousel sidebar-carousel special-offer custom-carousel owl-theme outer-top-xs">
+                            <div class="owl-carousel sidebar-carousel special-offer custom-carousel owl-theme outer-top-xs">
 
                                 @foreach ($categories as $category)
                                     <div class="item">

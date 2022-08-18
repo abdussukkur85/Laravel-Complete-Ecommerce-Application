@@ -21,9 +21,7 @@ class CreateProductsTable extends Migration {
             $table->string('slug');
             $table->string('code');
             $table->integer('quantity');
-            $table->string('tags');
-            $table->string('size')->nullable();
-            $table->string('color');
+
             $table->decimal('selling_price', 8, 2);
             $table->decimal('discount_price', 8, 2)->nullable();
             $table->string('short_description');

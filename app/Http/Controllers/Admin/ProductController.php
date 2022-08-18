@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
+use App\Models\Tag;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
@@ -12,8 +13,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\ProductRequest;
+use App\Models\Color;
+use App\Models\Size;
 use Intervention\Image\Facades\Image;
-
 use function PHPUnit\Framework\returnValue;
 
 class ProductController extends Controller {
@@ -46,6 +48,8 @@ class ProductController extends Controller {
      */
     public function store(ProductRequest $request) {
 
+
+
         // prepare thumbnail image before upload
         if ($request->file('thumbnail')) {
             $file = $request->file('thumbnail');
@@ -66,9 +70,6 @@ class ProductController extends Controller {
         $product->slug = Str::slug($request->name);
         $product->code = $request->code;
         $product->quantity = $request->quantity;
-        $product->tags = $request->tags;
-        $product->size = $request->size;
-        $product->color = $request->color;
         $product->selling_price = $request->selling_price;
         $product->discount_price = $request->discount_price;
         $product->short_description = $request->short_description;
@@ -81,6 +82,32 @@ class ProductController extends Controller {
         $product->status = 1;
         $product->save();
 
+        $tags = explode(',', $request->tags);
+        foreach ($tags as $tag) {
+            Tag::create([
+                'product_id' => $product->id,
+                'name' => $tag
+            ]);
+        }
+
+        if ($request->size) {
+            $sizes = explode(',', $request->size);
+            foreach ($sizes as $size) {
+                Size::create([
+                    'product_id' => $product->id,
+                    'size' => $size
+                ]);
+            }
+        }
+
+
+        $colors = explode(',', $request->color);
+        foreach ($colors as $color) {
+            Color::create([
+                'product_id' => $product->id,
+                'color' => $color
+            ]);
+        }
         // prepare thumbnail image before upload
         if ($request->file('gallery_image')) {
             $gallery_images = $request->file('gallery_image');
@@ -124,6 +151,7 @@ class ProductController extends Controller {
     public function edit(Product $product) {
         $brands = Brand::latest()->get();
         $categories = Category::latest()->get();
+
         return view('backend.product.edit', compact('product', 'brands', 'categories'));
     }
 
@@ -155,9 +183,6 @@ class ProductController extends Controller {
         $product->slug = Str::slug($request->name);
         $product->code = $request->code;
         $product->quantity = $request->quantity;
-        $product->tags = $request->tags;
-        $product->size = $request->size;
-        $product->color = $request->color;
         $product->selling_price = $request->selling_price;
         $product->discount_price = $request->discount_price;
         $product->short_description = $request->short_description;
@@ -172,6 +197,34 @@ class ProductController extends Controller {
         $product->status = 1;
         $product->update();
 
+        Tag::where('product_id', $product->id)->delete();
+        $tags = explode(',', $request->tags);
+        foreach ($tags as $tag) {
+            Tag::create([
+                'product_id' => $product->id,
+                'name' => $tag
+            ]);
+        }
+
+        if ($request->size) {
+            Size::where('product_id', $product->id)->delete();
+            $sizes = explode(',', $request->size);
+            foreach ($sizes as $size) {
+                Size::create([
+                    'product_id' => $product->id,
+                    'size' => $size
+                ]);
+            }
+        }
+
+        Color::where('product_id', $product->id)->delete();
+        $colors = explode(',', $request->color);
+        foreach ($colors as $color) {
+            Color::create([
+                'product_id' => $product->id,
+                'color' => $color
+            ]);
+        }
         // prepare thumbnail image before upload
         if ($request->file('gallery_image')) {
             $gallery_images = $request->file('gallery_image');

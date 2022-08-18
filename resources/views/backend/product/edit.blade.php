@@ -122,18 +122,21 @@
                                         <div class="form-group">
                                             <label for="productTags" class="required">Product Tag</label><br>
                                             <input type="text" class="form-control" id="productTags" name="tags"
-                                                data-role="tagsinput" value="{{ $product->tags }}">
+                                                data-role="tagsinput"
+                                                value="@foreach ($product->tags as $tag) {{ $tag->name }}, @endforeach">
                                         </div>
                                     </div>
                                 </div>
+
 
                                 <div class="row">
                                     <!-- Row Number 3 -->
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="productSize" class="required">Product Size</label><br>
+                                            <label for="productSize">Product Size</label><br>
                                             <input type="text" class="form-control" id="productSize" name="size"
-                                                data-role="tagsinput" value="{{ $product->size }}">
+                                                data-role="tagsinput"
+                                                value="@foreach ($product->sizes as $size) {{ $size->size }}, @endforeach">
                                         </div>
                                     </div>
 
@@ -141,7 +144,8 @@
                                         <div class="form-group">
                                             <label for="productColor" class="required">Product Color</label><br>
                                             <input type="text" class="form-control" id="productColor" name="color"
-                                                data-role="tagsinput" value="{{ $product->color }}">
+                                                data-role="tagsinput"
+                                                value="@foreach ($product->colors as $color) {{ $color->color }}, @endforeach">
                                         </div>
                                     </div>
 
