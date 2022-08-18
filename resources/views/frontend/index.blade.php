@@ -24,16 +24,18 @@
                                                             $sub_subcategories = App\Models\SubSubcategory::where('category_id', $category->id)
                                                                 ->where('subcategory_id', $subcategory->id)
                                                                 ->get();
+                                                            
                                                         @endphp
-
-                                                        @foreach ($sub_subcategories as $sub_subcategory)
-                                                            <div class="col-sm-12 col-md-3">
-                                                                <ul class="links list-unstyled">
+                                                        <div class="col-sm-12 col-md-3">
+                                                            <h2 class="title">{{ $subcategory->name }}</h2>
+                                                            <ul class="links list-unstyled">
+                                                                @foreach ($sub_subcategories as $sub_subcategory)
                                                                     <li><a href="#">{{ $sub_subcategory->name }}</a>
                                                                     </li>
-                                                                </ul>
-                                                            </div>
-                                                        @endforeach
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                        <!-- /.col -->
                                                     @endforeach
                                                 </div>
                                                 <!-- /.row -->
@@ -44,8 +46,6 @@
                                     </li>
                                     <!-- /.menu-item -->
                                 @endforeach
-
-
 
                             </ul>
                             <!-- /.nav -->
@@ -1386,7 +1386,8 @@
                                                             cart</button>
                                                     </li>
                                                     <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html"
-                                                            title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
+                                                            title="Wishlist"> <i class="icon fa fa-heart"></i> </a>
+                                                    </li>
                                                     <li class="lnk"> <a class="add-to-cart" href="detail.html"
                                                             title="Compare">
                                                             <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
