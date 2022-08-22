@@ -114,7 +114,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="productQuantity" class="required">Product Quantity</label>
                                             <input type="text" class="form-control" id="productQuantity" name="quantity"
@@ -122,12 +122,20 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="productTags" class="required">Product Tag</label><br>
-                                            <input type="text" class="form-control" id="productTags" name="tags"
-                                                data-role="tagsinput" value="{{ old('tags') ?? 'lorem,' }}">
+                                            <label for="productTags" class="required">Product Tags</label>
+                                            <select class="select2" multiple="multiple" name="tags[]"
+                                                data-placeholder="Select Product Tag" style="width: 100%;">
+                                                @foreach ($tags as $tag)
+                                                    <option value="{{ $tag->id }}"
+                                                        @if (collect(old('tags'))->contains($tag->id)) selected = "selected" @endif>
+                                                        {{ $tag->name }}</option>
+                                                @endforeach
+
+                                            </select>
                                         </div>
+                                        <!-- /.form-group -->
                                     </div>
                                 </div>
 
@@ -135,17 +143,31 @@
                                     <!-- Row Number 3 -->
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="productSize">Product Size</label><br>
-                                            <input type="text" class="form-control" id="productSize" name="size"
-                                                data-role="tagsinput" value="{{ old('size') ?? 'small,' }}">
+                                            <label for="productSizes" class="required">Product Size</label>
+                                            <select class="select2" multiple="multiple" name="sizes[]"
+                                                data-placeholder="Select Product Size" style="width: 100%;">
+                                                @foreach ($sizes as $size)
+                                                    <option value="{{ $size->id }}"
+                                                        @if (collect(old('sizes'))->contains($size->id)) selected = "selected" @endif>
+                                                        {{ $size->size }}</option>
+                                                @endforeach
+
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="productColor" class="required">Product Color</label><br>
-                                            <input type="text" class="form-control" id="productColor" name="color"
-                                                data-role="tagsinput" value="{{ old('color') ?? 'red,' }}">
+                                            <label for="productColours" class="required">Product Colour</label>
+                                            <select class="select2" multiple="multiple" name="colours[]"
+                                                data-placeholder="Select Product Colour" style="width: 100%;">
+                                                @foreach ($colours as $colour)
+                                                    <option value="{{ $colour->id }}"
+                                                        @if (collect(old('colours'))->contains($colour->id)) selected = "selected" @endif>
+                                                        {{ $colour->name }}</option>
+                                                @endforeach
+
+                                            </select>
                                         </div>
                                     </div>
 

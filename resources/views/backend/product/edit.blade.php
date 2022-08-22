@@ -120,10 +120,16 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="productTags" class="required">Product Tag</label><br>
-                                            <input type="text" class="form-control" id="productTags" name="tags"
-                                                data-role="tagsinput"
-                                                value="@foreach ($product->tags as $tag) {{ $tag->name }}, @endforeach">
+                                            <label for="productTags" class="required">Product Tags</label>
+                                            <select class="select2" multiple="multiple" name="tags[]"
+                                                data-placeholder="Select Product Tag" style="width: 100%;">
+                                                @foreach ($tags as $tag)
+                                                    <option value="{{ $tag->id }}"
+                                                        @if (in_array($tag->id, $product->tags->pluck('id')->toArray())) selected = "selected" @endif>
+                                                        {{ $tag->name }}</option>
+                                                @endforeach
+
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -133,19 +139,31 @@
                                     <!-- Row Number 3 -->
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="productSize">Product Size</label><br>
-                                            <input type="text" class="form-control" id="productSize" name="size"
-                                                data-role="tagsinput"
-                                                value="@foreach ($product->sizes as $size) {{ $size->size }}, @endforeach">
+                                            <label for="productSize" class="required">Product Size</label>
+                                            <select class="select2" multiple="multiple" name="sizes[]"
+                                                data-placeholder="Select Product Size" style="width: 100%;">
+                                                @foreach ($sizes as $size)
+                                                    <option value="{{ $size->id }}"
+                                                        @if (in_array($size->id, $product->sizes->pluck('id')->toArray())) selected = "selected" @endif>
+                                                        {{ $size->size }}</option>
+                                                @endforeach
+
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="productColor" class="required">Product Color</label><br>
-                                            <input type="text" class="form-control" id="productColor" name="color"
-                                                data-role="tagsinput"
-                                                value="@foreach ($product->colors as $color) {{ $color->color }}, @endforeach">
+                                            <label for="productColour" class="required">Product Colour</label><br>
+                                            <select class="select2" multiple="multiple" name="colours[]"
+                                                data-placeholder="Select Product Colour" style="width: 100%;">
+                                                @foreach ($colours as $colour)
+                                                    <option value="{{ $colour->id }}"
+                                                        @if (in_array($colour->id, $product->colours->pluck('id')->toArray())) selected = "selected" @endif>
+                                                        {{ $colour->name }}</option>
+                                                @endforeach
+
+                                            </select>
                                         </div>
                                     </div>
 

@@ -13,7 +13,6 @@ class CreateSizesTable extends Migration {
     public function up() {
         Schema::create('sizes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->string('size');
             $table->timestamps();
         });

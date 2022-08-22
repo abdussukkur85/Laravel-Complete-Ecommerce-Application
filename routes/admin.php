@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SubSubcategoryController;
+use App\Http\Controllers\Admin\TagController;
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
@@ -32,12 +33,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('subsubcategory', SubSubcategoryController::class)->except(['create', 'show']);
         Route::get('/subcategory/ajax/{id}', [SubSubcategoryController::class, 'getSubcategoryAjax'])->name('subcategory.ajax');
         Route::get('/subsubcategory/ajax/{id}', [SubSubcategoryController::class, 'getSubSubcategoryAjax'])->name('subsubcategory.ajax');
+
         Route::resource('products', ProductController::class);
         Route::put('product/{product}/inactive', [ProductController::class, 'inActive'])->name('products.inactive');
         Route::put('product/{product}/active', [ProductController::class, 'active'])->name('products.active');
         Route::delete('product/{id}/gallery_image', [ProductController::class, 'deleteGalleryImage'])->name('products.delete_gallery_image');
+
+
         Route::resource('slider', SliderController::class)->except(['create', 'show']);
         Route::put('slider/{slider}/inactive', [SliderController::class, 'inActive'])->name('slider.inactive');
         Route::put('slider/{slider}/active', [SliderController::class, 'active'])->name('slider.active');
+
+        Route::resource('tags', TagController::class);
     });
 });

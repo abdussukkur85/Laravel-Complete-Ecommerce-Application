@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\ProductRequest;
 use App\Models\Color;
+use App\Models\Colour;
 use App\Models\Size;
 use Intervention\Image\Facades\Image;
 use function PHPUnit\Framework\returnValue;
@@ -37,7 +38,10 @@ class ProductController extends Controller {
     public function create() {
         $brands = Brand::latest()->get();
         $categories = Category::latest()->get();
-        return view('backend.product.create', compact('brands', 'categories'));
+        $tags = Tag::latest()->get();
+        $colours = Colour::latest()->get();
+        $sizes = Size::latest()->get();
+        return view('backend.product.create', compact('brands', 'categories', 'tags', 'colours', 'sizes'));
     }
 
     /**
@@ -47,8 +51,6 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(ProductRequest $request) {
-
-
 
         // prepare thumbnail image before upload
         if ($request->file('thumbnail')) {
@@ -81,33 +83,11 @@ class ProductController extends Controller {
         $product->special_deal = $request->boolean('special_deal');;
         $product->status = 1;
         $product->save();
-
-        $tags = explode(',', $request->tags);
-        foreach ($tags as $tag) {
-            Tag::create([
-                'product_id' => $product->id,
-                'name' => $tag
-            ]);
-        }
-
-        if ($request->size) {
-            $sizes = explode(',', $request->size);
-            foreach ($sizes as $size) {
-                Size::create([
-                    'product_id' => $product->id,
-                    'size' => $size
-                ]);
-            }
-        }
+        $product->tags()->attach($request->tags);
+        $product->sizes()->attach($request->sizes);
+        $product->colours()->attach($request->colours);
 
 
-        $colors = explode(',', $request->color);
-        foreach ($colors as $color) {
-            Color::create([
-                'product_id' => $product->id,
-                'color' => $color
-            ]);
-        }
         // prepare thumbnail image before upload
         if ($request->file('gallery_image')) {
             $gallery_images = $request->file('gallery_image');
@@ -128,6 +108,7 @@ class ProductController extends Controller {
                 ]);
             }
         }
+
 
         return redirect()->route('admin.products.index')->with(['message' => 'Product Created Successfully', 'alert-type' => 'success']);
     }
@@ -151,8 +132,11 @@ class ProductController extends Controller {
     public function edit(Product $product) {
         $brands = Brand::latest()->get();
         $categories = Category::latest()->get();
+        $tags = Tag::latest()->get();
+        $colours = Colour::latest()->get();
+        $sizes = Size::latest()->get();
 
-        return view('backend.product.edit', compact('product', 'brands', 'categories'));
+        return view('backend.product.edit', compact('product', 'brands', 'categories', 'tags', 'colours', 'sizes'));
     }
 
     /**
@@ -195,36 +179,12 @@ class ProductController extends Controller {
         $product->special_offer = $request->boolean('special_offer');
         $product->special_deal = $request->boolean('special_deal');;
         $product->status = 1;
+        $product->tags()->sync($request->tags);
+        $product->sizes()->sync($request->sizes);
+        $product->colours()->sync($request->colours);
         $product->update();
 
-        Tag::where('product_id', $product->id)->delete();
-        $tags = explode(',', $request->tags);
-        foreach ($tags as $tag) {
-            Tag::create([
-                'product_id' => $product->id,
-                'name' => $tag
-            ]);
-        }
 
-        if ($request->size) {
-            Size::where('product_id', $product->id)->delete();
-            $sizes = explode(',', $request->size);
-            foreach ($sizes as $size) {
-                Size::create([
-                    'product_id' => $product->id,
-                    'size' => $size
-                ]);
-            }
-        }
-
-        Color::where('product_id', $product->id)->delete();
-        $colors = explode(',', $request->color);
-        foreach ($colors as $color) {
-            Color::create([
-                'product_id' => $product->id,
-                'color' => $color
-            ]);
-        }
         // prepare thumbnail image before upload
         if ($request->file('gallery_image')) {
             $gallery_images = $request->file('gallery_image');
@@ -246,6 +206,8 @@ class ProductController extends Controller {
                 ]);
             }
         }
+
+
 
         return redirect()->route('admin.products.index')->with(['message' => 'Product Updated Successfully', 'alert-type' => 'success']);
     }

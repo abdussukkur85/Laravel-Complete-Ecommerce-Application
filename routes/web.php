@@ -11,6 +11,9 @@ Route::get('/', [IndexController::class, 'index'])->name('frontend.home');
 // Frontend Product Controller
 Route::name('frontend.')->group(function () {
     Route::get('product/{product:slug}', [ProductController::class, 'details'])->name('product_details');
+    Route::get('product/{tag}', function ($value) {
+        return $value;
+    })->name('tag_wise_product');
 });
 
 

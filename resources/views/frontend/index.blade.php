@@ -147,8 +147,14 @@
                         <h3 class="section-title">Product tags</h3>
                         <div class="sidebar-widget-body outer-top-xs">
                             <div class="tag-list">
-                                {{-- @foreach ($tags as $tag)
-                                    <a class="item" title="Phone" href="#">{{ $tag }}</a>
+                                {{-- @php
+                                    $tags = App\Models\Tag::select(['name', 'id'])
+                                        ->groupBy('name')
+                                        ->get();
+                                @endphp
+                                @foreach ($tags as $tag)
+                                    <a class="item {{ $loop->first ? 'active' : '' }}" title="{{ ucwords($tag->name) }}"
+                                        href="">{{ $tag->name }} {{ $tag->id }}</a>
                                 @endforeach --}}
                             </div>
                             <!-- /.tag-list -->

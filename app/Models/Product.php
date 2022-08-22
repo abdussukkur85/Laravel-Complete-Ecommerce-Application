@@ -19,14 +19,14 @@ class Product extends Model {
     }
 
     public function tags() {
-        return $this->hasMany(Tag::class);
+        return $this->belongsToMany(Tag::class);
     }
 
     public function sizes() {
-        return $this->hasMany(Size::class);
+        return $this->belongsToMany(Size::class);
     }
 
-    public function colors() {
-        return $this->hasMany(Color::class);
+    public function colours() {
+        return $this->belongsToMany(Colour::class);
     }
 }

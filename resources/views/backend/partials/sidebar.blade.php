@@ -68,64 +68,17 @@
                     </ul>
                 </li>
 
-                <li class="nav-item {{ request()->routeIs('admin.brand*') ? 'menu-open' : '' }}">
+
+                <li class="nav-item @if (request()->routeIs([
+                    'admin.products*',
+                    'admin.brand*',
+                    'admin.category*',
+                    'admin.subcategory*',
+                    'admin.subsubcategory*',
+                    'admin.tags*',
+                ])) {{ 'menu-open' }} @endif ">
                     <a href="" class="nav-link">
-                        <i
-                            class="nav-icon fas fa-tachometer-alt {{ request()->routeIs('admin.brand*') ? 'active' : '' }}"></i>
-                        <p>
-                            Brand
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.brand.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.brand.index') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>All Brand</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item @if (request()->routeIs('admin.category*') ||
-                    request()->routeIs('admin.subcategory*') ||
-                    request()->routeIs('admin.subsubcategory*')) {{ 'menu-open' }} @endif ">
-                    <a href="" class="nav-link">
-                        <i
-                            class="nav-icon fas fa-tachometer-alt {{ request()->routeIs('admin.category*') ? 'active' : '' }}"></i>
-                        <p>
-                            Category
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.category.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.category*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>All Category</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.subcategory.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.subcategory*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>All SubCategory</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.subsubcategory.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.subsubcategory*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>All Sub <i class="fas fa-angle-double-right"></i> SubCategory</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item @if (request()->routeIs('admin.products*')) {{ 'menu-open' }} @endif ">
-                    <a href="" class="nav-link">
-                        <i
-                            class="nav-icon fas fa-tachometer-alt {{ request()->routeIs('admin.category*') ? 'active' : '' }}"></i>
+                        <i class="nav-icon fas fa-cube {{ request()->routeIs('admin.category*') ? 'active' : '' }}"></i>
                         <p>
                             Products
                             <i class="right fas fa-angle-left"></i>
@@ -133,18 +86,54 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
+                            <a href="{{ route('admin.brand.index') }}"
+                                class="nav-link {{ request()->routeIs('admin.brand*') ? 'active' : '' }}">
+
+                                <p class="pl-4">Brands</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.category.index') }}"
+                                class="nav-link {{ request()->routeIs('admin.category*') ? 'active' : '' }}">
+
+                                <p class="pl-4">Categories</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.subcategory.index') }}"
+                                class="nav-link {{ request()->routeIs('admin.subcategory*') ? 'active' : '' }}">
+
+                                <p class="pl-4">SubCategories</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.subsubcategory.index') }}"
+                                class="nav-link {{ request()->routeIs('admin.subsubcategory*') ? 'active' : '' }}">
+
+                                <p class="pl-4">Sub <i class="fas fa-angle-double-right"></i> SubCategories</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('admin.products.create') }}"
                                 class="nav-link {{ request()->routeIs('admin.products.create') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Add Product</p>
+
+                                <p class="pl-4">Add Product</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="{{ route('admin.products.index') }}"
                                 class="nav-link {{ request()->routeIs('admin.products.index') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Manage Product</p>
+
+                                <p class="pl-4">Manage Product</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.tags.index') }}"
+                                class="nav-link {{ request()->routeIs('admin.tags*') ? 'active' : '' }}">
+
+                                <p class="pl-4">Tags</p>
                             </a>
                         </li>
                     </ul>
