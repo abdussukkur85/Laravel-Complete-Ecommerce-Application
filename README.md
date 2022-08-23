@@ -1,4 +1,4 @@
-## Laravel Simple Post App with MultiLang Support
+## Laravel Complete Ecommerce Application
 **Live:** http://laravel-complete-ecommerce-app.herokuapp.com/
 
 ## Admin Login Details
