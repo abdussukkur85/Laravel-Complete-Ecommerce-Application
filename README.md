@@ -1,5 +1,5 @@
 ## Laravel Complete Ecommerce Application
-**Live:** http://laravel-complete-ecommerce-app.herokuapp.com/
+**Live:** https://laravel-complete-ecommerce-app.herokuapp.com
 
 ## Admin Login Details
 **Login URL:** http://laravel-complete-ecommerce-app.herokuapp.com/admin/login
