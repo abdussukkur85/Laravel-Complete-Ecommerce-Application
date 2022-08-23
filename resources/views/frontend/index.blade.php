@@ -147,15 +147,14 @@
                         <h3 class="section-title">Product tags</h3>
                         <div class="sidebar-widget-body outer-top-xs">
                             <div class="tag-list">
-                                {{-- @php
-                                    $tags = App\Models\Tag::select(['name', 'id'])
-                                        ->groupBy('name')
-                                        ->get();
+                                @php
+                                    $tags = App\Models\Tag::all();
                                 @endphp
                                 @foreach ($tags as $tag)
-                                    <a class="item {{ $loop->first ? 'active' : '' }}" title="{{ ucwords($tag->name) }}"
-                                        href="">{{ $tag->name }} {{ $tag->id }}</a>
-                                @endforeach --}}
+                                    <a href="{{ route('frontend.tag_wise_product', $tag) }}"
+                                        class="item {{ $loop->first ? 'active' : '' }}" title="{{ ucwords($tag->name) }}"
+                                        href="">{{ $tag->name }}</a>
+                                @endforeach
                             </div>
                             <!-- /.tag-list -->
                         </div>

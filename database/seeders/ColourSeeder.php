@@ -12,6 +12,7 @@ class ColourSeeder extends Seeder {
      * @return void
      */
     public function run() {
+
         $colors = ['red', 'green', 'blue', 'white'];
         for ($i = 0; $i < count($colors); $i++) {
             Colour::create([

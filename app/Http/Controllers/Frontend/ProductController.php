@@ -13,8 +13,10 @@ class ProductController extends Controller {
     }
 
     public function tagWiseProduct(Tag $tag) {
-        return "Yes";
-        $products = Product::where('status', 1)->where('id', $tag->product_id)->paginate(10);
-        return view('frontend.product.tag-wise-product', compact('tag'));
+        $tag_id = $tag->id;
+        $tag_wise_products = Product::whereHas('tags', function ($query) use ($tag_id) {
+            $query->where('tag_id', $tag_id);
+        })->get();
+        return view('frontend.product.tag-wise-product', compact('tag_wise_products', 'tag'));
     }
 }

@@ -12,6 +12,7 @@ class SizeSeeder extends Seeder {
      * @return void
      */
     public function run() {
+
         $sizes = ['SM', 'MD', 'LG', 'XL', 'XXL'];
         for ($i = 0; $i < count($sizes); $i++) {
             Size::create([
