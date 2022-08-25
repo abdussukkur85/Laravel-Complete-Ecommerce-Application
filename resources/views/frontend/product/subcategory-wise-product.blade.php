@@ -149,12 +149,12 @@
                                 <div class="sidebar-widget-body outer-top-xs">
                                     <div class="tag-list">
                                         @php
-                                            $tags = App\Models\Tag::latest()->get();
+                                            $tags = App\Models\Tag::all();
                                         @endphp
-                                        @foreach ($tags as $_tag)
-                                            <a class="item @if ($tag->id == $_tag->id) active @endif"
-                                                title="{{ ucwords($_tag->name) }}"
-                                                href="{{ route('frontend.tag_wise_product', $_tag) }}">{{ $_tag->name }}</a>
+                                        @foreach ($tags as $tag)
+                                            <a href="{{ route('frontend.tag_wise_product', $tag) }}"
+                                                class="item {{ $loop->first ? 'active' : '' }}"
+                                                title="{{ ucwords($tag->name) }}" href="">{{ $tag->name }}</a>
                                         @endforeach
 
                                     </div>
@@ -298,6 +298,7 @@
                             <!-- /.col -->
                             <div class="col col-sm-6 col-md-4 text-right f-paginator">
                                 {{ $products->links() }}
+                                <!-- /.pagination-container -->
                             </div>
                             <!-- /.col -->
                         </div>
@@ -395,7 +396,6 @@
 
                             </div>
                             <!-- /.tab-pane -->
-
                             <div class="tab-pane " id="list-container">
                                 <div class="category-product">
                                     @foreach ($products as $product)

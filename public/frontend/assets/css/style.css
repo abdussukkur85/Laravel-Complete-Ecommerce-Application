@@ -1,3 +1,7 @@
 .text-danger{
     color: red !important;
 }
+
+.f-paginator .pagination {
+    margin-top: 0px
+}

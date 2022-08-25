@@ -24,7 +24,8 @@
                                         <h2 class="title">{{ $subcategory->name }}</h2>
                                         <ul class="links list-unstyled">
                                             @foreach ($sub_subcategories as $sub_subcategory)
-                                                <li><a href="#">{{ $sub_subcategory->name }}</a>
+                                                <li><a
+                                                        href="{{ route('frontend.sub_subcategory_wise_product', $sub_subcategory) }}">{{ $sub_subcategory->name }}</a>
                                                 </li>
                                             @endforeach
                                         </ul>

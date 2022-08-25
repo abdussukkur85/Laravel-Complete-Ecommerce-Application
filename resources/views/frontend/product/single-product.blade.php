@@ -489,7 +489,7 @@
                                             <div class="col-sm-6">
                                                 <div class="price-box">
                                                     @if ($product->discount_price)
-                                                        <span class="price">{{ $product->discount_price }}</span>
+                                                        <span class="price">${{ $product->discount_price }}</span>
                                                         <span class="price-strike">${{ $product->selling_price }}</span>
                                                     @else
                                                         <span class="price">${{ $product->selling_price }}</span>

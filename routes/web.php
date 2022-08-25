@@ -12,6 +12,8 @@ Route::get('/', [IndexController::class, 'index'])->name('frontend.home');
 Route::name('frontend.')->group(function () {
     Route::get('product/{product:slug}', [ProductController::class, 'details'])->name('product_details');
     Route::get('product/tag/{tag:slug}', [ProductController::class, 'tagWiseProduct'])->name('tag_wise_product');
+    Route::get('product/sub-category/{subcategory:slug}', [ProductController::class, 'subcategoryWiseProduct'])->name('subcategory_wise_product');
+    Route::get('product/sub-sub-category/{sub_subcategory:slug}', [ProductController::class, 'subSubcategoryWiseProduct'])->name('sub_subcategory_wise_product');
 });
 
 

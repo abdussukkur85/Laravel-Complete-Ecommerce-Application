@@ -214,7 +214,8 @@
                         <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
                             <div class="nav-outer">
                                 <ul class="nav navbar-nav">
-                                    <li class="active  yamm-fw"> <a href="{{ route('frontend.home') }}">Home</a> </li>
+                                    <li class="active  yamm-fw"> <a href="{{ route('frontend.home') }}">Home</a>
+                                    </li>
 
                                     @php
                                         $categories = App\Models\Category::latest()->get();
@@ -240,7 +241,7 @@
 
                                                                         @foreach ($sub_subcategories as $sub_subcategory)
                                                                             <li><a
-                                                                                    href="#">{{ $sub_subcategory->name }}</a>
+                                                                                    href="{{ route('frontend.sub_subcategory_wise_product', $sub_subcategory) }}">{{ $sub_subcategory->name }}</a>
                                                                             </li>
                                                                         @endforeach
 
