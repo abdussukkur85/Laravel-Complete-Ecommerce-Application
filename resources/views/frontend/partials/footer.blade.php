@@ -102,13 +102,18 @@
                 <ul class="link">
                     <li class="fb pull-left"><a target="_blank" rel="nofollow" href="#" title="Facebook"></a></li>
                     <li class="tw pull-left"><a target="_blank" rel="nofollow" href="#" title="Twitter"></a></li>
-                    <li class="googleplus pull-left"><a target="_blank" rel="nofollow" href="#" title="GooglePlus"></a>
+                    <li class="googleplus pull-left"><a target="_blank" rel="nofollow" href="#"
+                            title="GooglePlus"></a>
                     </li>
-                    <li class="rss pull-left"><a target="_blank" rel="nofollow" href="#" title="RSS"></a></li>
-                    <li class="pintrest pull-left"><a target="_blank" rel="nofollow" href="#" title="PInterest"></a>
+                    <li class="rss pull-left"><a target="_blank" rel="nofollow" href="#" title="RSS"></a>
                     </li>
-                    <li class="linkedin pull-left"><a target="_blank" rel="nofollow" href="#" title="Linkedin"></a></li>
-                    <li class="youtube pull-left"><a target="_blank" rel="nofollow" href="#" title="Youtube"></a></li>
+                    <li class="pintrest pull-left"><a target="_blank" rel="nofollow" href="#"
+                            title="PInterest"></a>
+                    </li>
+                    <li class="linkedin pull-left"><a target="_blank" rel="nofollow" href="#"
+                            title="Linkedin"></a></li>
+                    <li class="youtube pull-left"><a target="_blank" rel="nofollow" href="#"
+                            title="Youtube"></a></li>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-6 no-padding">
@@ -127,6 +132,68 @@
     </div>
 </footer>
 <!-- ============================================================= FOOTER : END============================================================= -->
+
+
+
+<!-- ============== PRODUCT MODAL BODY ============= -->
+<!-- Modal -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><span class="pname"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pmodal-body">
+                <div class="loading-snipper">
+                    <img src="{{ asset('frontend/assets/images/loading.gif') }}" alt="Loading...">
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <img class="card-img-top pimage" alt="Product Image">
+                    </div>
+                    <div class="col-md-5">
+                        <ul class="list-group">
+                            <li class="list-group-item">Product Price: <b><span class="main-price"></span></b> <del
+                                    class="old-price"></del></li>
+                            <li class="list-group-item">Product Code: <b><span class="pcode"></span></b></li>
+                            <li class="list-group-item">Category: <b><span class="pcategory"></span></b></li>
+                            <li class="list-group-item">Brand: <b><span class="pbrand"></span></b></li>
+                            <li class="list-group-item">Stock: <span class="pstock">
+                                    <span class="badge badge-primary stock-available"
+                                        style="background: #28a745; color:white">Available</span>
+                                    <span class="badge badge-danger stock-out"
+                                        style="background: #dc3545; color:white">Stock Out!</span>
+                                </span></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="chooseColor">Choose Color</label>
+                            <select class="form-control" id="pColour" name="colour">
+                            </select>
+                        </div>
+                        <div class="form-group psize-area">
+                            <label for="chooseSize">Choose Size</label>
+                            <select class="form-control" id="pSize" name="size">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="chooseQuantity">Choose Quantity</label>
+                            <input type="number" name="quantity" min="1" class="form-control"
+                                value="1" id="chooseQuantity">
+                        </div>
+                        <button class="btn btn-primary btn-md">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- For demo purposes – can be removed on production -->
 
@@ -174,6 +241,75 @@
                 break;
         }
     @endif
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    function productView(id) {
+        $('.loading-snipper').show();
+        $('.stock-available').hide();
+        $('.stock-out').hide();
+        $('.pmodal-body .row').addClass('invisible');
+
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: "/product/view/modal/" + id,
+            success: function(data) {
+
+                $(".pname").text(data.product.name);
+                $(".pimage").attr("src", "{{ asset('uploads/backend/thumbnail/') }}" + "/" + data.product
+                    .thumbnail);
+                $(".pcode").text(data.product.code);
+                $(".pcategory").text(data.product.category.name);
+                $(".pbrand").text(data.product.brand.name);
+
+                $('select[name="colour"]').empty();
+                $.each(data.product.colours, function(key, value) {
+                    $('select[name="colour"]').append('<option value=" ' + value.name + ' ">' +
+                        value.name +
+                        '</option>')
+                });
+
+
+                $('select[name="size"]').empty();
+
+                if (data.product.sizes.length > 0) {
+                    $('.psize-area').show();
+                    $.each(data.product.sizes, function(key, value) {
+                        $('select[name="size"]').append('<option value=" ' + value.size + ' ">' +
+                            value.size +
+                            '</option>');
+                    });
+                } else {
+                    $('.psize-area').hide();
+                }
+
+
+                if (data.product.quantity > 0) {
+                    $('.stock-available').show();
+                } else {
+                    $('.stock-out').show();
+                }
+
+                $('.main-price').text("");
+                $('.old-price').text("");
+                if (data.product.discount_price == null) {
+                    $('.main-price').text("$" + data.product.selling_price);
+                } else {
+                    $('.main-price').text("$" + data.product.discount_price);
+                    $('.old-price').text("$" + data.product.selling_price);
+                }
+
+                $('.loading-snipper').hide();
+                $('.pmodal-body .row').removeClass('invisible');
+
+            }
+        });
+    }
 </script>
 </body>
 

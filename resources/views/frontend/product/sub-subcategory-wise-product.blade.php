@@ -4,15 +4,25 @@
         <div class="container">
             <div class="breadcrumb-inner">
                 <ul class="list-inline list-unstyled">
-                    <li><a href="#">Home</a></li>
-                    <li class='active'>Handbags</li>
+                    <li>
+                        <a href="{{ route('frontend.home') }}">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('frontend.subcategory_wise_product', $sub_subcategory->category) }}">
+                            {{ $sub_subcategory->category->name }}
+                        </a>
+                    </li>
+                    <li class='active'>{{ $sub_subcategory->name }}</li>
                 </ul>
             </div>
+
             <!-- /.breadcrumb-inner -->
         </div>
         <!-- /.container -->
     </div>
     <!-- /.breadcrumb -->
+
+
 
     <div class="body-content outer-top-xs">
         <div class='container'>

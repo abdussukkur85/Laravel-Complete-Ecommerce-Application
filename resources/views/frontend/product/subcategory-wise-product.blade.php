@@ -3,9 +3,9 @@
     <div class="breadcrumb">
         <div class="container">
             <div class="breadcrumb-inner">
-                <ul class="list-inline list-unstyled">
-                    <li><a href="#">Home</a></li>
-                    <li class='active'>Handbags</li>
+                <ul class="list-unstyled">
+                    <li><a href="{{ route('frontend.home') }}">Home</a></li>
+                    <li class='active'>{{ $subcategory->name }}</li>
                 </ul>
             </div>
             <!-- /.breadcrumb-inner -->

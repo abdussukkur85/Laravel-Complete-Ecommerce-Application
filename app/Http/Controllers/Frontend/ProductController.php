@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Subcategory;
 use App\Models\SubSubcategory;
+use Illuminate\Http\Client\ResponseSequence;
 
 class ProductController extends Controller {
     public function details(Product $product) {
@@ -28,5 +29,13 @@ class ProductController extends Controller {
     public function subSubcategoryWiseProduct(SubSubcategory $sub_subcategory) {
         $products = Product::where('sub_subcategory_id', $sub_subcategory->id)->paginate(12);
         return view('frontend.product.sub-subcategory-wise-product', compact('products', 'sub_subcategory'));
+    }
+
+    public function productModalAjax($id) {
+
+        $product = Product::with(['category', 'brand', 'colours', 'sizes'])->findOrFail($id);
+        return response()->json([
+            'product' => $product
+        ]);
     }
 }
