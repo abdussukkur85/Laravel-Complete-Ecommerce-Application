@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <meta name="keywords" content="MediaCenter, Template, eCommerce">
     <meta name="robots" content="all">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="{{ asset('frontend/assets') }}/js/jquery.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Ecommerce Online Shop</title>
 
@@ -36,7 +36,7 @@
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <script src="{{ asset('backend') }}/dist/js/toastr.min.js"></script>
     <link rel="stylesheet" href="{{ asset('frontend/assets') }}/css/style.css">
-    {{-- <script src="{{ asset('frontend/assets') }}/js/jquery.min.js"></script> --}}
+
     @stack('css')
 </head>
 
