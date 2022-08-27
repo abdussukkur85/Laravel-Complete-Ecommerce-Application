@@ -247,139 +247,140 @@
 </script>
 
 <script>
-    $(document).ready(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+
+
+    // Product View Modal with product details
+    function productView(id) {
+        $('.loading-snipper').show();
+        $('.stock-available').hide();
+        $('.stock-out').hide();
+        $('.pmodal-body .row').addClass('invisible');
+
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: "/product/view/modal/" + id,
+            success: function(data) {
+                $(".pid").val(data.product.id);
+                $("#pQuantity").val(1);
+                $(".pname").text(data.product.name);
+                $(".pimage").attr("src", "{{ asset('uploads/backend/thumbnail/') }}" + "/" +
+                    data.product
+                    .thumbnail);
+                $(".pcode").text(data.product.code);
+                $(".pcategory").text(data.product.category.name);
+                $(".pbrand").text(data.product.brand.name);
+
+                $('select[name="colour"]').empty();
+                $.each(data.product.colours, function(key, value) {
+                    $('select[name="colour"]').append('<option value=" ' + value.name +
+                        ' ">' +
+                        value.name +
+                        '</option>')
+                });
+
+
+                $('select[name="size"]').empty();
+
+                if (data.product.sizes.length > 0) {
+                    $('.psize-area').show();
+                    $.each(data.product.sizes, function(key, value) {
+                        $('select[name="size"]').append('<option value=" ' + value
+                            .size + ' ">' +
+                            value.size +
+                            '</option>');
+                    });
+                } else {
+                    $('.psize-area').hide();
+                }
+
+
+                if (data.product.quantity > 0) {
+                    $('.stock-available').show();
+                } else {
+                    $('.stock-out').show();
+                }
+
+                $('.main-price').text("");
+                $('.old-price').text("");
+                if (data.product.discount_price == null) {
+                    $('.main-price').text("$" + data.product.selling_price);
+                } else {
+                    $('.main-price').text("$" + data.product.discount_price);
+                    $('.old-price').text("$" + data.product.selling_price);
+                }
+
+                $('.loading-snipper').hide();
+                $('.pmodal-body .row').removeClass('invisible');
+
             }
         });
+    }
 
-        // Product View Modal with product details
-        function productView(id) {
-            $('.loading-snipper').show();
-            $('.stock-available').hide();
-            $('.stock-out').hide();
-            $('.pmodal-body .row').addClass('invisible');
+    function addToCart() {
+        let id = $(".pid").val();
+        let product_name = $(".pname").text();
+        let colour = $("#pColour option:selected").text();
+        let size = $("#pSize option:selected").text();
+        let quantity = $('#pQuantity').val();
+        // console.log(id, product_name, color, size, quantity);
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                colour: colour,
+                size: size,
+                quantity: quantity,
+                product_name: product_name,
+            },
+            url: "/cart/data/store/" + id,
 
-            $.ajax({
-                type: 'GET',
-                dataType: 'json',
-                url: "/product/view/modal/" + id,
-                success: function(data) {
-                    $(".pid").val(data.product.id);
-                    $("#pQuantity").val(1);
-                    $(".pname").text(data.product.name);
-                    $(".pimage").attr("src", "{{ asset('uploads/backend/thumbnail/') }}" + "/" +
-                        data.product
-                        .thumbnail);
-                    $(".pcode").text(data.product.code);
-                    $(".pcategory").text(data.product.category.name);
-                    $(".pbrand").text(data.product.brand.name);
+            success: function(data) {
+                miniCart();
+                $(".close-modal").click();
 
-                    $('select[name="colour"]').empty();
-                    $.each(data.product.colours, function(key, value) {
-                        $('select[name="colour"]').append('<option value=" ' + value.name +
-                            ' ">' +
-                            value.name +
-                            '</option>')
-                    });
-
-
-                    $('select[name="size"]').empty();
-
-                    if (data.product.sizes.length > 0) {
-                        $('.psize-area').show();
-                        $.each(data.product.sizes, function(key, value) {
-                            $('select[name="size"]').append('<option value=" ' + value
-                                .size + ' ">' +
-                                value.size +
-                                '</option>');
-                        });
-                    } else {
-                        $('.psize-area').hide();
-                    }
-
-
-                    if (data.product.quantity > 0) {
-                        $('.stock-available').show();
-                    } else {
-                        $('.stock-out').show();
-                    }
-
-                    $('.main-price').text("");
-                    $('.old-price').text("");
-                    if (data.product.discount_price == null) {
-                        $('.main-price').text("$" + data.product.selling_price);
-                    } else {
-                        $('.main-price').text("$" + data.product.discount_price);
-                        $('.old-price').text("$" + data.product.selling_price);
-                    }
-
-                    $('.loading-snipper').hide();
-                    $('.pmodal-body .row').removeClass('invisible');
-
+                // Add to cart toster message
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+                if ($.isEmptyObject(data.error)) {
+                    Toast.fire({
+                        type: 'success',
+                        title: data.success
+                    })
+                } else {
+                    Toast.fire({
+                        type: 'error',
+                        title: data.error
+                    })
                 }
-            });
-        }
-
-        function addToCart() {
-            let id = $(".pid").val();
-            let product_name = $(".pname").text();
-            let colour = $("#pColour option:selected").text();
-            let size = $("#pSize option:selected").text();
-            let quantity = $('#pQuantity').val();
-            // console.log(id, product_name, color, size, quantity);
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    colour: colour,
-                    size: size,
-                    quantity: quantity,
-                    product_name: product_name,
-                },
-                url: "/cart/data/store/" + id,
-
-                success: function(data) {
-                    miniCart();
-                    $(".close-modal").click();
-
-                    // Add to cart toster message
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        icon: 'success',
-                        showConfirmButton: false,
-                        timer: 3000
-                    });
-                    if ($.isEmptyObject(data.error)) {
-                        Toast.fire({
-                            type: 'success',
-                            title: data.success
-                        })
-                    } else {
-                        Toast.fire({
-                            type: 'error',
-                            title: data.error
-                        })
-                    }
 
 
-                }
-            });
-        }
+            }
+        });
+    }
 
-        function miniCart() {
-            $.ajax({
-                type: 'GET',
-                url: '/product/mini/cart',
-                dataType: 'json',
-                success: function(response) {
-                    $('span[id="cartSubTotal"]').text(response.subTotal);
-                    $('#cartQty').text(response.cartQty);
-                    var miniCart = "";
-                    $.each(response.carts, function(key, value) {
-                        miniCart += `<div class="cart-item product-summary">
+    function miniCart() {
+        $.ajax({
+            type: 'GET',
+            url: '/product/mini/cart',
+            dataType: 'json',
+            success: function(response) {
+                $('span[id="cartSubTotal"]').text(response.subTotal);
+                $('#cartQty').text(response.cartQty);
+                var miniCart = "";
+                $.each(response.carts, function(key, value) {
+                    miniCart += `<div class="cart-item product-summary">
           <div class="row">
             <div class="col-xs-4">
               <div class="image"> <a href="detail.html"><img src="/uploads/backend/thumbnail/${value.options.image}" alt=""></a> </div>
@@ -394,47 +395,45 @@
         <!-- /.cart-item -->
         <div class="clearfix"></div>
         <hr>`
-                    });
+                });
 
-                    $('#miniCart').html(miniCart);
-                }
-            })
-        }
-        miniCart();
+                $('#miniCart').html(miniCart);
+            }
+        })
+    }
+    miniCart();
 
 
-        function miniCartRemove(rowId) {
-            $.ajax({
-                type: 'GET',
-                url: '/minicart/product-remove/' + rowId,
-                dataType: 'json',
-                success: function(data) {
-                    miniCart();
-                    // Start Message 
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        icon: 'success',
-                        showConfirmButton: false,
-                        timer: 3000
+    function miniCartRemove(rowId) {
+        $.ajax({
+            type: 'GET',
+            url: '/minicart/product-remove/' + rowId,
+            dataType: 'json',
+            success: function(data) {
+                miniCart();
+                // Start Message 
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                if ($.isEmptyObject(data.error)) {
+                    Toast.fire({
+                        type: 'success',
+                        title: data.success
                     })
-                    if ($.isEmptyObject(data.error)) {
-                        Toast.fire({
-                            type: 'success',
-                            title: data.success
-                        })
-                    } else {
-                        Toast.fire({
-                            type: 'error',
-                            title: data.error
-                        })
-                    }
-                    // End Message 
+                } else {
+                    Toast.fire({
+                        type: 'error',
+                        title: data.error
+                    })
                 }
-            });
-        }
-
-    });
+                // End Message 
+            }
+        });
+    }
 </script>
 </body>
 
