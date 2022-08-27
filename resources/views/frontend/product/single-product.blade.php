@@ -448,7 +448,7 @@
 
                             <div class='col-sm-6 col-md-7 product-info-block'>
                                 <div class="product-info">
-                                    <h1 class="name">{{ $product->name }}</h1>
+                                    <h1 class="pname">{{ $product->name }}</h1>
 
                                     <div class="rating-reviews m-t-20">
                                         <div class="row">
@@ -518,6 +518,37 @@
                                         </div><!-- /.row -->
                                     </div><!-- /.price-container -->
 
+                                    <div class="product-options">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="pColour">Choose Color</label>
+                                                    <select class="form-control" id="pColour" name="colour">
+                                                        @foreach ($product->colours as $colour)
+                                                            <option value="{{ $colour->name }}">{{ $colour->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            @if (count($product->sizes) > 0)
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="pSize">Choose Size</label>
+                                                        <select class="form-control" id="pSize" name="size">
+                                                            @foreach ($product->sizes as $size)
+                                                                <option value="{{ $size->size }}">{{ $size->size }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                        </div>
+
+                                    </div>
                                     <div class="quantity-container info-container">
                                         <div class="row">
 
@@ -526,7 +557,7 @@
                                             </div>
 
                                             <div class="col-sm-2">
-                                                <div class="cart-quantity">
+                                                {{-- <div class="cart-quantity">
                                                     <div class="quant-input">
                                                         <div class="arrows">
                                                             <div class="arrow plus gradient"><span class="ir"><i
@@ -534,14 +565,18 @@
                                                             <div class="arrow minus gradient"><span class="ir"><i
                                                                         class="icon fa fa-sort-desc"></i></span></div>
                                                         </div>
-                                                        <input type="text" value="1">
+                                                        <input type="number" class="pQuantity form-control">
                                                     </div>
-                                                </div>
+                                                </div> --}}
+                                                <input type="number" id="pQuantity" class="form-control"
+                                                    value="1">
                                             </div>
 
+                                            <input type="hidden" class="pid" value="{{ $product->id }}">
                                             <div class="col-sm-7">
-                                                <a href="#" class="btn btn-primary"><i
-                                                        class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
+                                                <button class="btn btn-primary" onclick="addToCart();"><i
+                                                        class="fa fa-shopping-cart inner-right-vs"></i> ADD TO
+                                                    CART</button>
                                             </div>
 
 

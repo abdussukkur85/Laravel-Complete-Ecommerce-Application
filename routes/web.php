@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\ProductCartController;
 use App\Http\Controllers\Frontend\ProductController;
 
 
@@ -15,6 +16,9 @@ Route::name('frontend.')->group(function () {
     Route::get('product/sub-category/{subcategory:slug}', [ProductController::class, 'subcategoryWiseProduct'])->name('subcategory_wise_product');
     Route::get('product/sub-sub-category/{sub_subcategory:slug}', [ProductController::class, 'subSubcategoryWiseProduct'])->name('sub_subcategory_wise_product');
     Route::get('product/view/modal/{id}', [ProductController::class, 'productModalAjax']);
+    Route::post('cart/data/store/{id}', [ProductCartController::class, 'addToCart']);
+    Route::get('product/mini/cart', [ProductCartController::class, 'miniCart']);
+    Route::get('/minicart/product-remove/{rowId}', [ProductCartController::class, 'RemoveMiniCart']);
 });
 
 

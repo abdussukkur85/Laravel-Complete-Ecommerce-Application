@@ -142,8 +142,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel"><span class="pname"></span></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                    <span class="close-modal" aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body pmodal-body">
@@ -184,9 +184,10 @@
                         <div class="form-group">
                             <label for="chooseQuantity">Choose Quantity</label>
                             <input type="number" name="quantity" min="1" class="form-control"
-                                value="1" id="chooseQuantity">
+                                id="pQuantity">
                         </div>
-                        <button class="btn btn-primary btn-md">Add to Cart</button>
+                        <input type="hidden" class="pid">
+                        <button class="btn btn-primary btn-md" onclick="addToCart();">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -211,8 +212,10 @@
 <script type="text/javascript" src="{{ asset('frontend/assets') }}/js/lightbox.min.js"></script>
 <script src="{{ asset('frontend/assets') }}/js/bootstrap-select.min.js"></script>
 <script src="{{ asset('frontend/assets') }}/js/wow.min.js"></script>
+
+<script src="{{ asset('frontend/assets') }}/js/toastr.min.js"></script>
+<script src="{{ asset('frontend/assets') }}/js/sweetalert2@10.js"></script>
 <script src="{{ asset('frontend/assets') }}/js/scripts.js"></script>
-<script src="{{ asset('backend') }}/dist/js/toastr.min.js"></script>
 @stack('js')
 <script>
     @if (count($errors) > 0)
@@ -248,6 +251,7 @@
         }
     });
 
+    // Product View Modal with product details
     function productView(id) {
         $('.loading-snipper').show();
         $('.stock-available').hide();
@@ -259,7 +263,8 @@
             dataType: 'json',
             url: "/product/view/modal/" + id,
             success: function(data) {
-
+                $(".pid").val(data.product.id);
+                $("#pQuantity").val(1);
                 $(".pname").text(data.product.name);
                 $(".pimage").attr("src", "{{ asset('uploads/backend/thumbnail/') }}" + "/" + data.product
                     .thumbnail);
@@ -307,6 +312,118 @@
                 $('.loading-snipper').hide();
                 $('.pmodal-body .row').removeClass('invisible');
 
+            }
+        });
+    }
+
+    function addToCart() {
+        let id = $(".pid").val();
+        let product_name = $(".pname").text();
+        let colour = $("#pColour option:selected").text();
+        let size = $("#pSize option:selected").text();
+        let quantity = $('#pQuantity').val();
+        // console.log(id, product_name, color, size, quantity);
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                colour: colour,
+                size: size,
+                quantity: quantity,
+                product_name: product_name,
+            },
+            url: "/cart/data/store/" + id,
+
+            success: function(data) {
+                miniCart();
+                $(".close-modal").click();
+
+                // Add to cart toster message
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+                if ($.isEmptyObject(data.error)) {
+                    Toast.fire({
+                        type: 'success',
+                        title: data.success
+                    })
+                } else {
+                    Toast.fire({
+                        type: 'error',
+                        title: data.error
+                    })
+                }
+
+
+            }
+        });
+    }
+
+    function miniCart() {
+        $.ajax({
+            type: 'GET',
+            url: '/product/mini/cart',
+            dataType: 'json',
+            success: function(response) {
+                $('span[id="cartSubTotal"]').text(response.subTotal);
+                $('#cartQty').text(response.cartQty);
+                var miniCart = "";
+                $.each(response.carts, function(key, value) {
+                    miniCart += `<div class="cart-item product-summary">
+          <div class="row">
+            <div class="col-xs-4">
+              <div class="image"> <a href="detail.html"><img src="/uploads/backend/thumbnail/${value.options.image}" alt=""></a> </div>
+            </div>
+            <div class="col-xs-7">
+              <h3 class="name"><a href="index.php?page-detail">${value.name}</a></h3>
+              <div class="price"><span>$</span> ${value.price} * ${value.qty} </div>
+            </div>
+            <div class="col-xs-1 action"> <button type="submit" id="${value.rowId}" onclick="miniCartRemove(this.id)"><i class="fa fa-trash"></i></button> </div> </div>
+          </div>
+        </div>
+        <!-- /.cart-item -->
+        <div class="clearfix"></div>
+        <hr>`
+                });
+
+                $('#miniCart').html(miniCart);
+            }
+        })
+    }
+    miniCart();
+
+
+    function miniCartRemove(rowId) {
+        $.ajax({
+            type: 'GET',
+            url: '/minicart/product-remove/' + rowId,
+            dataType: 'json',
+            success: function(data) {
+                miniCart();
+                // Start Message 
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                if ($.isEmptyObject(data.error)) {
+                    Toast.fire({
+                        type: 'success',
+                        title: data.success
+                    })
+                } else {
+                    Toast.fire({
+                        type: 'error',
+                        title: data.error
+                    })
+                }
+                // End Message 
             }
         });
     }
