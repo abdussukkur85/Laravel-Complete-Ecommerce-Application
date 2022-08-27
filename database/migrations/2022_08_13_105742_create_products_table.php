@@ -25,7 +25,7 @@ class CreateProductsTable extends Migration {
             $table->decimal('selling_price', 8, 2);
             $table->decimal('discount_price', 8, 2)->nullable();
             $table->string('short_description');
-            $table->text('long_description');
+            $table->longText('long_description');
             $table->string('thumbnail');
             $table->tinyInteger('hot_deals')->nullable();
             $table->tinyInteger('featured')->nullable();
