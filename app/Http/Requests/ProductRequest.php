@@ -35,8 +35,7 @@ class ProductRequest extends FormRequest {
             'selling_price' => 'required|numeric',
             'discount_price' => 'nullable|numeric',
             'short_description' => 'required|string|max:255',
-            'long_description' => 'required|string|max:255',
-            'long_description' => 'required|string|max:255',
+            'long_description' => 'required|string|max:500',
 
         ];
         if ($this->getMethod() == 'POST') {
