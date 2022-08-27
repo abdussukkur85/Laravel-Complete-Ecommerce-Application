@@ -201,7 +201,7 @@
 <!-- For demo purposes – can be removed on production : End -->
 
 <!-- JavaScripts placed at the end of the document so the pages load faster -->
-<script src="{{ asset('frontend/assets') }}/js/jquery.min.js"></script>
+
 <script src="{{ asset('frontend/assets') }}/js/bootstrap.min.js"></script>
 <script src="{{ asset('frontend/assets') }}/js/bootstrap-hover-dropdown.min.js"></script>
 <script src="{{ asset('frontend/assets') }}/js/owl.carousel.min.js"></script>
@@ -252,9 +252,6 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
-
-
     // Product View Modal with product details
     function productView(id) {
         $('.loading-snipper').show();
